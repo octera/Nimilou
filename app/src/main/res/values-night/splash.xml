@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App.Starting.Theme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#1C1E21</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/book</item>
+        <item name="postSplashScreenTheme">@style/Theme.DroidStoryBox</item>
+    </style>
+
+</resources>
