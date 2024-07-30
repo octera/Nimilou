@@ -18,24 +18,25 @@ import info.octera.droidstorybox.ui.theme.BlueGray
 
 @Composable
 fun PageIndicator(
-    modifier: Modifier = Modifier, pageSize: Int,
+    modifier: Modifier = Modifier,
+    pageSize: Int,
     selectedPage: Int,
     selectedColor: Color = MaterialTheme.colorScheme.primary,
-    unselectedColor: Color = BlueGray
-
+    unselectedColor: Color = BlueGray,
 ) {
     Row(
         modifier = Modifier.padding(horizontal = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         repeat(pageSize) { page ->
             Box(
-                modifier = modifier
-                    .size(24.dp)
-                    .padding(vertical = 4.dp, horizontal = 2.dp)
-                    .clip(CircleShape)
-                    .background(color = if (page == selectedPage) selectedColor else unselectedColor)
+                modifier =
+                    modifier
+                        .size(24.dp)
+                        .padding(vertical = 4.dp, horizontal = 2.dp)
+                        .clip(CircleShape)
+                        .background(color = if (page == selectedPage) selectedColor else unselectedColor),
             )
         }
     }

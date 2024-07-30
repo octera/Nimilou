@@ -24,17 +24,16 @@ import info.octera.droidstorybox.R
 import info.octera.droidstorybox.presentation.Dimens.ExtraSmallPadding2
 import info.octera.droidstorybox.ui.theme.NewsAppTheme
 
-
 @Composable
 fun NewsBottomNavigation(
     items: List<BottomNavigationItem>,
     selectedItem: Int,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
 ) {
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.background,
-        tonalElevation = 10.dp
+        tonalElevation = 10.dp,
     ) {
         items.forEachIndexed { index, item ->
             NavigationBarItem(
@@ -51,13 +50,14 @@ fun NewsBottomNavigation(
                         Text(text = item.text, style = MaterialTheme.typography.labelSmall)
                     }
                 },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                    unselectedIconColor = colorResource(id = R.color.body),
-                    unselectedTextColor = colorResource(id = R.color.body),
-                    indicatorColor = MaterialTheme.colorScheme.background
-                ),
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
+                        unselectedIconColor = colorResource(id = R.color.body),
+                        unselectedTextColor = colorResource(id = R.color.body),
+                        indicatorColor = MaterialTheme.colorScheme.background,
+                    ),
             )
         }
     }
@@ -65,19 +65,23 @@ fun NewsBottomNavigation(
 
 data class BottomNavigationItem(
     @DrawableRes val icon: Int,
-    val text: String
+    val text: String,
 )
-
 
 @Preview
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun NewsBottomNavigationPreview() {
     NewsAppTheme(dynamicColor = false) {
-        NewsBottomNavigation(items = listOf(
-            BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
-            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
-            BottomNavigationItem(icon = R.drawable.baseline_bookmark_border_24, text = "Bookmark"),
-        ), selectedItem = 0, onItemClick = {})
+        NewsBottomNavigation(
+            items =
+                listOf(
+                    BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
+                    BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
+                    BottomNavigationItem(icon = R.drawable.baseline_bookmark_border_24, text = "Bookmark"),
+                ),
+            selectedItem = 0,
+            onItemClick = {},
+        )
     }
 }

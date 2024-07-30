@@ -38,55 +38,55 @@ import info.octera.droidstorybox.ui.theme.NewsAppTheme
 fun ArticleCard(
     modifier: Modifier = Modifier,
     article: Article,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
 ) {
-
     val context = LocalContext.current
     Row(
         modifier = modifier.clickable { onClick?.invoke() },
-
-        ) {
+    ) {
         AsyncImage(
-            modifier = Modifier
-                .size(ArticleCardSize)
-                .clip(MaterialTheme.shapes.medium),
+            modifier =
+                Modifier
+                    .size(ArticleCardSize)
+                    .clip(MaterialTheme.shapes.medium),
             model = ImageRequest.Builder(context).data(article.urlToImage).build(),
             contentDescription = null,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         Column(
             verticalArrangement = Arrangement.SpaceAround,
-            modifier = Modifier
-                .padding(horizontal = ExtraSmallPadding)
-                .height(ArticleCardSize)
+            modifier =
+                Modifier
+                    .padding(horizontal = ExtraSmallPadding)
+                    .height(ArticleCardSize),
         ) {
             Text(
                 text = article.title,
                 style = MaterialTheme.typography.bodyMedium.copy(),
                 color = colorResource(id = R.color.text_title),
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
             )
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     text = article.source.name,
                     style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                    color = colorResource(id = R.color.body)
+                    color = colorResource(id = R.color.body),
                 )
                 Spacer(modifier = Modifier.width(ExtraSmallPadding2))
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_access_time_24),
                     contentDescription = null,
                     modifier = Modifier.size(SmallIconSize),
-                    tint = colorResource(id = R.color.body)
+                    tint = colorResource(id = R.color.body),
                 )
                 Spacer(modifier = Modifier.width(ExtraSmallPadding))
                 Text(
                     text = article.publishedAt,
                     style = MaterialTheme.typography.labelSmall,
-                    color = colorResource(id = R.color.body)
+                    color = colorResource(id = R.color.body),
                 )
             }
         }
@@ -98,16 +98,17 @@ fun ArticleCard(
 fun ArticleCardPreview() {
     NewsAppTheme(dynamicColor = false) {
         ArticleCard(
-            article = Article(
-                author = "",
-                content = "",
-                description = "",
-                publishedAt = "2 hours",
-                source = Source(id = "", name = "BBC"),
-                title = "Her train broke down. Her phone died. And then she met her Saver in a",
-                url = "",
-                urlToImage = "https://ichef.bbci.co.uk/live-experience/cps/624/cpsprodpb/11787/production/_124395517_bbcbreakingnewsgraphic.jpg"
-            )
+            article =
+                Article(
+                    author = "",
+                    content = "",
+                    description = "",
+                    publishedAt = "2 hours",
+                    source = Source(id = "", name = "BBC"),
+                    title = "Her train broke down. Her phone died. And then she met her Saver in a",
+                    url = "",
+                    urlToImage = "https://ichef.bbci.co.uk/live-experience/cps/624/cpsprodpb/11787/production/_124395517_bbcbreakingnewsgraphic.jpg",
+                ),
         )
     }
 }

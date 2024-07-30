@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 
 class NewsRepositoryImpl(
     private val newsApi: NewsApi,
-    private val newsDao: NewsDao
+    private val newsDao: NewsDao,
 ) : NewsRepository {
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
         return Pager(
@@ -21,25 +21,27 @@ class NewsRepositoryImpl(
             pagingSourceFactory = {
                 NewsPagingSource(
                     newsApi = newsApi,
-                    sources = sources.joinToString(",")
+                    sources = sources.joinToString(","),
                 )
-            }
+            },
         ).flow
     }
 
-    override fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
+    override fun searchNews(
+        searchQuery: String,
+        sources: List<String>,
+    ): Flow<PagingData<Article>> {
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
                 SearchNewsPagingSource(
                     searchQuery = searchQuery,
                     newsApi = newsApi,
-                    sources = sources.joinToString(",")
+                    sources = sources.joinToString(","),
                 )
-            }
+            },
         ).flow
-        }
-
+    }
 
     override suspend fun upsertArticle(article: Article) {
         newsDao.upsert(article)

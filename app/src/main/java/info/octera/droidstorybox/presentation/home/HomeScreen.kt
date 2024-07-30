@@ -1,6 +1,5 @@
 package info.octera.droidstorybox.presentation.home
 
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
@@ -32,15 +31,13 @@ import info.octera.droidstorybox.presentation.Dimens.MediumPadding2
 import info.octera.droidstorybox.presentation.common.ArticlesList
 import info.octera.droidstorybox.presentation.common.SearchBar
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     articles: LazyPagingItems<Article>,
     navigateToSearch: () -> Unit,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetails: (Article) -> Unit,
 ) {
-
     val titles by remember {
         derivedStateOf {
             if (articles.itemCount > 10) {
@@ -54,43 +51,49 @@ fun HomeScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 10.dp)
-            .statusBarsPadding()
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(top = 10.dp)
+                .statusBarsPadding(),
     ) {
         Image(
             painter = painterResource(id = R.drawable.banner),
             contentDescription = null,
-            modifier = Modifier
-                .size(width = 900.dp, height = 30.dp)
-                .align(Alignment.CenterHorizontally)
-            , contentScale = ContentScale.Crop
+            modifier =
+                Modifier
+                    .size(width = 900.dp, height = 30.dp)
+                    .align(Alignment.CenterHorizontally),
+            contentScale = ContentScale.Crop,
         )
 
         Spacer(modifier = Modifier.padding(10.dp))
 
         SearchBar(
-            modifier = Modifier
-                .padding(horizontal = MediumPadding2)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .padding(horizontal = MediumPadding2)
+                    .fillMaxWidth(),
             text = "",
             readOnly = true,
             onValueChange = {},
             onSearch = {},
             onClick = {
                 navigateToSearch()
-            }
+            },
         )
 
         Spacer(modifier = Modifier.padding(bottom = 20.dp))
 
         Text(
-            text = titles, modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = MediumPadding1)
-                .basicMarquee(), fontSize = 14.sp,
-            color = colorResource(id = R.color.placeholder)
+            text = titles,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = MediumPadding1)
+                    .basicMarquee(),
+            fontSize = 14.sp,
+            color = colorResource(id = R.color.placeholder),
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
@@ -100,7 +103,7 @@ fun HomeScreen(
             articles = articles,
             onClick = {
                 navigateToDetails(it)
-            }
+            },
         )
     }
 }

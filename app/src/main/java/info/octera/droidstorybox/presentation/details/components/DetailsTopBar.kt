@@ -32,11 +32,12 @@ fun DetailsTopBar(
 ) {
     TopAppBar(
         modifier = Modifier.fillMaxWidth(),
-        colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = Color.Transparent,
-            actionIconContentColor = colorResource(id = R.color.body),
-            navigationIconContentColor = colorResource(id = R.color.body),
-        ),
+        colors =
+            TopAppBarDefaults.mediumTopAppBarColors(
+                containerColor = Color.Transparent,
+                actionIconContentColor = colorResource(id = R.color.body),
+                navigationIconContentColor = colorResource(id = R.color.body),
+            ),
         title = {},
         navigationIcon = {
             IconButton(onClick = onBackClick) {
@@ -47,23 +48,22 @@ fun DetailsTopBar(
             }
         },
         actions = {
-
             IconButton(onClick = onBookMarkClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_bookmark_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             IconButton(onClick = onShareClick) {
                 Icon(
                     imageVector = Icons.Default.Share,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             IconButton(onClick = onBrowsingClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_web_24),
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
         },
@@ -75,13 +75,16 @@ fun DetailsTopBar(
 @Composable
 fun DetailsTopBarPreview() {
     NewsAppTheme(dynamicColor = false) {
-        Box(modifier = Modifier
-            .background(MaterialTheme.colorScheme.background)) {
+        Box(
+            modifier =
+                Modifier
+                    .background(MaterialTheme.colorScheme.background),
+        ) {
             DetailsTopBar(
                 onShareClick = { /*TODO*/ },
                 onBookMarkClick = { /*TODO*/ },
-                onBrowsingClick = {}) {
-
+                onBrowsingClick = {},
+            ) {
             }
         }
     }

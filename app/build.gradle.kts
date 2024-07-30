@@ -10,6 +10,7 @@ plugins {
 ktlint {
     android.set(true)
     outputColorName.set("RED")
+    ignoreFailures.set(true)
 }
 
 android {

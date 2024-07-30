@@ -19,9 +19,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import info.octera.droidstorybox.presentation.Dimens.IndicatorSize
 import info.octera.droidstorybox.presentation.common.NewsButton
 import info.octera.droidstorybox.presentation.common.NewsTextButton
-import info.octera.droidstorybox.presentation.Dimens.IndicatorSize
 import info.octera.droidstorybox.presentation.onboarding.OnBoardingEvent
 import info.octera.droidstorybox.presentation.onboarding.pages
 import kotlinx.coroutines.launch
@@ -29,22 +29,25 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
-    modifier: Modifier = Modifier, event: (OnBoardingEvent) -> Unit
+    modifier: Modifier = Modifier,
+    event: (OnBoardingEvent) -> Unit,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        val pagerState = rememberPagerState(initialPage = 0) {
-            pages.size
-        }
-        val buttonState = remember {
-            derivedStateOf {
-                when (pagerState.currentPage) {
-                    0 -> listOf("", "Next")
-                    1 -> listOf("Back", "Next")
-                    2 -> listOf("Back", "Get Started")
-                    else -> listOf("", "")
+        val pagerState =
+            rememberPagerState(initialPage = 0) {
+                pages.size
+            }
+        val buttonState =
+            remember {
+                derivedStateOf {
+                    when (pagerState.currentPage) {
+                        0 -> listOf("", "Next")
+                        1 -> listOf("Back", "Next")
+                        2 -> listOf("Back", "Get Started")
+                        else -> listOf("", "")
+                    }
                 }
             }
-        }
 
         HorizontalPager(state = pagerState) { index ->
             OnBoardingPage(page = pages[index])
@@ -52,22 +55,23 @@ fun OnBoardingScreen(
 
         Spacer(modifier = Modifier.weight(1f))
         Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = 10.dp)
-                .navigationBarsPadding(),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp)
+                    .navigationBarsPadding(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             PageIndicator(
                 pageSize = pages.size,
                 selectedPage = pagerState.currentPage,
-                modifier = Modifier.width(IndicatorSize)
+                modifier = Modifier.width(IndicatorSize),
             )
             Row(
                 modifier = Modifier.weight(1f),
                 horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 val scope = rememberCoroutineScope()
 
@@ -88,11 +92,8 @@ fun OnBoardingScreen(
                         }
                     }
                 })
-
             }
-
         }
         Spacer(modifier = Modifier.weight(0.5f))
     }
-
 }

@@ -10,9 +10,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import dagger.hilt.android.AndroidEntryPoint
 import info.octera.droidstorybox.presentation.navgraph.NavGraph
 import info.octera.droidstorybox.ui.theme.NewsAppTheme
-import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -22,17 +22,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-
         installSplashScreen().apply {
             setKeepOnScreenCondition {
                 viewModel.splashCondition
             }
         }
-        actionBar?.hide();
+        actionBar?.hide()
         setContent {
             NewsAppTheme {
                 Box(
-                    modifier = Modifier.background(MaterialTheme.colorScheme.background)
+                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
                 ) {
                     val startDestination = viewModel.startDestination
                     NavGraph(startDestination = startDestination)
