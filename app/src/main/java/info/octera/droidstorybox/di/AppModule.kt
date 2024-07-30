@@ -25,10 +25,6 @@ import info.octera.droidstorybox.domain.usecases.news.SelectArticle
 import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import info.octera.droidstorybox.data.local.PackSourcesDao
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository

@@ -61,6 +61,7 @@ fun PackSourcesScreen(
     var addDialogOpen by remember { mutableStateOf(false) }
 
     Scaffold (
+        modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { addDialogOpen = true },
