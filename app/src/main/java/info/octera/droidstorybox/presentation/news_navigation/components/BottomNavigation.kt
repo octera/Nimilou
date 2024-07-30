@@ -25,7 +25,7 @@ import info.octera.droidstorybox.presentation.Dimens.ExtraSmallPadding2
 import info.octera.droidstorybox.ui.theme.NewsAppTheme
 
 @Composable
-fun NewsBottomNavigation(
+fun BottomNavigation(
     items: List<BottomNavigationItem>,
     selectedItem: Int,
     onItemClick: (Int) -> Unit,
@@ -73,15 +73,10 @@ data class BottomNavigationItem(
 @Composable
 fun NewsBottomNavigationPreview() {
     NewsAppTheme(dynamicColor = false) {
-        NewsBottomNavigation(
-            items =
-                listOf(
-                    BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
-                    BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
-                    BottomNavigationItem(icon = R.drawable.baseline_bookmark_border_24, text = "Bookmark"),
-                ),
-            selectedItem = 0,
-            onItemClick = {},
-        )
+        BottomNavigation(items = listOf(
+            BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
+            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
+            BottomNavigationItem(icon = R.drawable.baseline_bookmark_border_24, text = "Bookmark"),
+        ), selectedItem = 0, onItemClick = {})
     }
 }

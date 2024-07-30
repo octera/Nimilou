@@ -31,45 +31,46 @@ import info.octera.droidstorybox.presentation.home.HomeScreen
 import info.octera.droidstorybox.presentation.home.HomeViewModel
 import info.octera.droidstorybox.presentation.navgraph.Route
 import info.octera.droidstorybox.presentation.news_navigation.components.BottomNavigationItem
-import info.octera.droidstorybox.presentation.news_navigation.components.NewsBottomNavigation
+import info.octera.droidstorybox.presentation.news_navigation.components.BottomNavigation
+import info.octera.droidstorybox.presentation.pack_sources.PackSourcesScreen
+import info.octera.droidstorybox.presentation.pack_sources.PackSourcesViewModel
 import info.octera.droidstorybox.presentation.search.SearchScreen
 import info.octera.droidstorybox.presentation.search.SearchViewModel
 
 @Composable
 fun NewsNavigator() {
-    val bottomNavigationItems =
-        remember {
-            listOf(
-                BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
-                BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
-                BottomNavigationItem(icon = R.drawable.baseline_bookmark_border_24, text = "Bookmark"),
-            )
-        }
+
+    val bottomNavigationItems = remember {
+        listOf(
+            BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
+            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
+            BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = "Pack sources"),
+        )
+    }
 
     val navController = rememberNavController()
     val backStackState = navController.currentBackStackEntryAsState().value
     var selectedItem by rememberSaveable {
         mutableIntStateOf(0)
     }
-    selectedItem =
-        when (backStackState?.destination?.route) {
-            Route.HomeScreen.route -> 0
-            Route.SearchScreen.route -> 1
-            Route.BookmarkScreen.route -> 2
-            else -> 0
-        }
+    selectedItem = when (backStackState?.destination?.route) {
+        Route.HomeScreen.route -> 0
+        Route.SearchScreen.route -> 1
+        Route.PackSourceScreen.route -> 2
+        else -> 0
+    }
 
     // Hide the bottom navigation when the user is in the details screen
     val isBottomBarVisible =
         remember(key1 = backStackState) {
             backStackState?.destination?.route == Route.HomeScreen.route ||
                 backStackState?.destination?.route == Route.SearchScreen.route ||
-                backStackState?.destination?.route == Route.BookmarkScreen.route
-        }
+                backStackState?.destination?.route == Route.PackSourceScreen.route
+    }
 
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
         if (isBottomBarVisible) {
-            NewsBottomNavigation(
+            BottomNavigation(
                 items = bottomNavigationItems,
                 selectedItem = selectedItem,
                 onItemClick = { index ->
@@ -86,11 +87,10 @@ fun NewsNavigator() {
                                 route = Route.SearchScreen.route,
                             )
 
-                        2 ->
-                            navigateToTab(
-                                navController = navController,
-                                route = Route.BookmarkScreen.route,
-                            )
+                        2 -> navigateToTab(
+                            navController = navController,
+                            route = Route.PackSourceScreen.route
+                        )
                     }
                 },
             )
@@ -152,18 +152,14 @@ fun NewsNavigator() {
                         )
                     }
             }
-            composable(route = Route.BookmarkScreen.route) {
-                val viewModel: BookmarkViewModel = hiltViewModel()
+            composable(route = Route.PackSourceScreen.route) {
+                val viewModel: PackSourcesViewModel = hiltViewModel()
                 val state = viewModel.state.value
                 OnBackClickStateSaver(navController = navController)
-                BookmarkScreen(
+                PackSourcesScreen(
                     state = state,
-                    navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article,
-                        )
-                    },
+                    addPackSource = viewModel::addPackSource,
+                    deletePackSource = viewModel::deletePackSource
                 )
             }
         }

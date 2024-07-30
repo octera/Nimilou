@@ -26,6 +26,17 @@ import info.octera.droidstorybox.domain.usecases.news.SelectArticles
 import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import info.octera.droidstorybox.data.local.PackSourcesDao
+import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
+import info.octera.droidstorybox.domain.repository.PackSourcesRepository
+import info.octera.droidstorybox.domain.usecases.pack_sources.DeletePackSource
+import info.octera.droidstorybox.domain.usecases.pack_sources.GetPackSources
+import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
+import info.octera.droidstorybox.domain.usecases.pack_sources.UpsertPackSource
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -57,11 +68,29 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun providePackSourcesRepository(packSourcesDao: PackSourcesDao): PackSourcesRepository {
+        return PackSourcesRepositoryImpl(packSourcesDao)
+    }
+
+    @Provides
+    @Singleton
     fun provideNewsRepository(
         newsApi: NewsApi,
         newsDao: NewsDao,
     ): NewsRepository {
         return NewsRepositoryImpl(newsApi, newsDao)
+    }
+
+    @Provides
+    @Singleton
+    fun providePackSourcesUseCases(
+        packSourcesRepository: PackSourcesRepository,
+    ): PackSourcesUseCases {
+        return PackSourcesUseCases(
+            getPackSources = GetPackSources(packSourcesRepository),
+            deletePackSource = DeletePackSource(packSourcesRepository),
+            upsertPackSource = UpsertPackSource(packSourcesRepository),
+        )
     }
 
     @Provides
@@ -93,5 +122,13 @@ object AppModule {
     @Singleton
     fun provideNewsDao(newsDatabase: NewsDatabase): NewsDao {
         return newsDatabase.newsDao
+    }
+
+    @Provides
+    @Singleton
+    fun providePackSourcesDao(
+        newsDatabase: NewsDatabase
+    ): PackSourcesDao {
+        return newsDatabase.packSourcesDao
     }
 }
