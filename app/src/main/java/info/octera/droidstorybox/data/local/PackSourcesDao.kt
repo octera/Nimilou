@@ -5,17 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import info.octera.droidstorybox.domain.model.Article
+import info.octera.droidstorybox.domain.model.PackSource
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NewsDao {
+interface PackSourcesDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(article: Article)
+    suspend fun upsert(packSource: PackSource)
 
     @Delete
-    suspend fun delete(article: Article)
+    suspend fun delete(packSource: PackSource)
 
-    @Query("SELECT * FROM Article WHERE url=:url")
-    suspend fun getArticle(url: String): Article?
+    @Query("SELECT * FROM PackSource")
+    fun getPackSource(): Flow<List<PackSource>>
+
 }

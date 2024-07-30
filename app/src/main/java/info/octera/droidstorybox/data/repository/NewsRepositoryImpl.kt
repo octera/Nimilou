@@ -51,10 +51,6 @@ class NewsRepositoryImpl(
         newsDao.delete(article)
     }
 
-    override fun getArticles(): Flow<List<Article>> {
-        return newsDao.getArticles()
-    }
-
     override suspend fun getArticle(url: String): Article? {
         return newsDao.getArticle(url = url)
     }
