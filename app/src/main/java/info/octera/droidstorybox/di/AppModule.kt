@@ -22,7 +22,6 @@ import info.octera.droidstorybox.domain.usecases.news.GetNews
 import info.octera.droidstorybox.domain.usecases.news.NewsUseCases
 import info.octera.droidstorybox.domain.usecases.news.SearchNews
 import info.octera.droidstorybox.domain.usecases.news.SelectArticle
-import info.octera.droidstorybox.domain.usecases.news.SelectArticles
 import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
@@ -101,7 +100,6 @@ object AppModule {
             searchNews = SearchNews(newsRepository),
             upsertArticle = UpsertArticle(newsRepository),
             deleteArticle = DeleteArticle(newsRepository),
-            selectArticles = SelectArticles(newsRepository),
             selectArticle = SelectArticle(newsRepository),
         )
     }

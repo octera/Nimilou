@@ -22,8 +22,6 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import info.octera.droidstorybox.R
 import info.octera.droidstorybox.domain.model.Article
-import info.octera.droidstorybox.presentation.bookmark.BookmarkScreen
-import info.octera.droidstorybox.presentation.bookmark.BookmarkViewModel
 import info.octera.droidstorybox.presentation.details.DetailViewModel
 import info.octera.droidstorybox.presentation.details.DetailsEvent
 import info.octera.droidstorybox.presentation.details.DetailsScreen

@@ -121,13 +121,15 @@ fun PackSourceDialog(
                     value = name,
                     onValueChange = {name = it},
                     label = { Text("Name") },
-                    isError = !validName()
+                    isError = !validName(),
+                    modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = url,
                     onValueChange = {url = it},
                     label = { Text("URL") },
-                    isError = !validUrl()
+                    isError = !validUrl(),
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 
@@ -144,7 +146,10 @@ fun PackSourceDialog(
                 }
 
                 TextButton(
-                    onClick = { onConfirmation(PackSource(url = url, name= name)) },
+                    onClick = {
+                        onConfirmation(PackSource(url = url, name= name))
+                        onDismissRequest()
+                    },
                     modifier = Modifier.padding(16.dp),
                     enabled = validForm()
                 ) {
