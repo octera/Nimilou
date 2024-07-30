@@ -2,6 +2,10 @@ package info.octera.droidstorybox.di
 
 import android.app.Application
 import androidx.room.Room
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import info.octera.droidstorybox.data.local.NewsDao
 import info.octera.droidstorybox.data.local.NewsDatabase
 import info.octera.droidstorybox.data.local.NewsTypeConverter
@@ -22,35 +26,24 @@ import info.octera.droidstorybox.domain.usecases.news.SelectArticles
 import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun provideLocalUserManager(application: Application): LocalUserManager = LocalUserManagerImpl(application)
 
     @Provides
     @Singleton
-    fun provideLocalUserManager(
-        application: Application
-    ): LocalUserManager = LocalUserManagerImpl(application)
-
-
-    @Provides
-    @Singleton
-    fun provideAppEntryUseCases(
-        localUserManger: LocalUserManager
-    ): AppEntryUseCases = AppEntryUseCases(
-        readAppEntry = ReadAppEntry(localUserManger),
-        saveAppEntry = SaveAppEntry(localUserManger)
-    )
-
+    fun provideAppEntryUseCases(localUserManger: LocalUserManager): AppEntryUseCases =
+        AppEntryUseCases(
+            readAppEntry = ReadAppEntry(localUserManger),
+            saveAppEntry = SaveAppEntry(localUserManger),
+        )
 
     @Provides
     @Singleton
@@ -64,15 +57,16 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(newsApi: NewsApi, newsDao: NewsDao): NewsRepository {
+    fun provideNewsRepository(
+        newsApi: NewsApi,
+        newsDao: NewsDao,
+    ): NewsRepository {
         return NewsRepositoryImpl(newsApi, newsDao)
     }
 
     @Provides
     @Singleton
-    fun provideNewsUseCases(
-        newsRepository: NewsRepository,
-    ): NewsUseCases {
+    fun provideNewsUseCases(newsRepository: NewsRepository): NewsUseCases {
         return NewsUseCases(
             getNews = GetNews(newsRepository),
             searchNews = SearchNews(newsRepository),
@@ -83,29 +77,21 @@ object AppModule {
         )
     }
 
-
     @Provides
     @Singleton
-    fun provideNewsDatabase(
-        application: Application
-    ): NewsDatabase {
+    fun provideNewsDatabase(application: Application): NewsDatabase {
         return Room.databaseBuilder(
             context = application,
             klass = NewsDatabase::class.java,
-            name = NEW_DATABASE
+            name = NEW_DATABASE,
         ).addTypeConverter(NewsTypeConverter())
             .fallbackToDestructiveMigration()
             .build()
-
     }
 
     @Provides
     @Singleton
-    fun provideNewsDao(
-        newsDatabase: NewsDatabase
-    ): NewsDao {
+    fun provideNewsDao(newsDatabase: NewsDatabase): NewsDao {
         return newsDatabase.newsDao
     }
-
-
 }

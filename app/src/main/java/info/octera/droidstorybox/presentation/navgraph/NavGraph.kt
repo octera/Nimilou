@@ -11,15 +11,13 @@ import info.octera.droidstorybox.presentation.onboarding.OnBoardingViewModel
 import info.octera.droidstorybox.presentation.onboarding.components.OnBoardingScreen
 
 @Composable
-fun NavGraph(
-    startDestination: String
-) {
+fun NavGraph(startDestination: String) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = startDestination) {
         navigation(
             route = Route.AppStartNavigation.route,
-            startDestination = Route.OnBoardingScreen.route
+            startDestination = Route.OnBoardingScreen.route,
         ) {
             composable(route = Route.OnBoardingScreen.route) {
                 val viewModel: OnBoardingViewModel = hiltViewModel()
@@ -29,32 +27,11 @@ fun NavGraph(
 
         navigation(
             route = Route.NewsNavigation.route,
-            startDestination = Route.NewsNavigatorScreen.route
+            startDestination = Route.NewsNavigatorScreen.route,
         ) {
             composable(route = Route.NewsNavigatorScreen.route) {
-                    NewsNavigator()
-
+                NewsNavigator()
             }
         }
-
-
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

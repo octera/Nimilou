@@ -34,7 +34,6 @@ import java.net.SocketTimeoutException
 
 @Composable
 fun EmptyScreen(error: LoadState.Error? = null) {
-
     var message by remember {
         mutableStateOf(parseErrorMessage(error = error))
     }
@@ -54,7 +53,8 @@ fun EmptyScreen(error: LoadState.Error? = null) {
 
     val alphaAnimation by animateFloatAsState(
         targetValue = if (startAnimation) 0.3f else 0f,
-        animationSpec = tween(durationMillis = 1000), label = ""
+        animationSpec = tween(durationMillis = 1000),
+        label = "",
     )
 
     LaunchedEffect(key1 = true) {
@@ -62,35 +62,39 @@ fun EmptyScreen(error: LoadState.Error? = null) {
     }
 
     EmptyContent(alphaAnim = alphaAnimation, message = message, iconId = icon)
-
 }
 
 @Composable
-fun EmptyContent(alphaAnim: Float, message: String, iconId: Int) {
+fun EmptyContent(
+    alphaAnim: Float,
+    message: String,
+    iconId: Int,
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(
             painter = painterResource(id = iconId),
             contentDescription = null,
             tint = if (isSystemInDarkTheme()) LightGray else DarkGray,
-            modifier = Modifier
-                .size(120.dp)
-                .alpha(alphaAnim)
+            modifier =
+                Modifier
+                    .size(120.dp)
+                    .alpha(alphaAnim),
         )
         Text(
-            modifier = Modifier
-                .padding(10.dp)
-                .alpha(alphaAnim),
+            modifier =
+                Modifier
+                    .padding(10.dp)
+                    .alpha(alphaAnim),
             text = message,
             style = MaterialTheme.typography.bodyMedium,
             color = if (isSystemInDarkTheme()) LightGray else DarkGray,
         )
     }
 }
-
 
 fun parseErrorMessage(error: LoadState.Error?): String {
     return when (error?.error) {
@@ -115,6 +119,6 @@ fun EmptyScreenPreview() {
     EmptyContent(
         alphaAnim = 0.3f,
         message = "Internet Unavailable.",
-        R.drawable.baseline_signal_cellular_connected_no_internet_0_bar_24
+        R.drawable.baseline_signal_cellular_connected_no_internet_0_bar_24,
     )
 }

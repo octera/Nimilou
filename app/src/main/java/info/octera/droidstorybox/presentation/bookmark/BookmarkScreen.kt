@@ -21,29 +21,31 @@ import info.octera.droidstorybox.presentation.common.ArticlesList
 fun BookmarkScreen(
     modifier: Modifier = Modifier,
     state: BookmarkState,
-    navigateToDetails: (Article) -> Unit
+    navigateToDetails: (Article) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-            .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1),
     ) {
-
         Text(
             text = "Bookmark",
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
-            color = colorResource(
-                id = R.color.text_title
-            )
+            color =
+                colorResource(
+                    id = R.color.text_title,
+                ),
         )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
         ArticlesList(
             articles = state.articles,
-            onClick = {navigateToDetails(it)
-            }
+            onClick = {
+                navigateToDetails(it)
+            },
         )
     }
 }

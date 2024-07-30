@@ -16,15 +16,17 @@ import info.octera.droidstorybox.presentation.common.SearchBar
 
 @Composable
 fun SearchScreen(
-    modifier: Modifier = Modifier, state: SearchState,
-    event: (SearchEvent) -> Unit, navigateToDetails: (Article) -> Unit
+    modifier: Modifier = Modifier,
+    state: SearchState,
+    event: (SearchEvent) -> Unit,
+    navigateToDetails: (Article) -> Unit,
 ) {
-
     Column(
-        modifier = modifier
-            .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
-            .statusBarsPadding()
-            .fillMaxSize()
+        modifier =
+            modifier
+                .padding(top = MediumPadding1, start = MediumPadding1, end = MediumPadding1)
+                .statusBarsPadding()
+                .fillMaxSize(),
     ) {
         SearchBar(
             text = state.searchQuery,
@@ -32,7 +34,7 @@ fun SearchScreen(
             onValueChange = { event(SearchEvent.UpdateSearchQuery(it)) },
             onSearch = {
                 event(SearchEvent.SearchNews)
-            }
+            },
         )
         Spacer(modifier = modifier.height(MediumPadding1))
         state.articles?.let {
@@ -40,8 +42,8 @@ fun SearchScreen(
             ArticlesList(
                 articles = articles,
                 onClick = {
-            navigateToDetails(it)
-                }
+                    navigateToDetails(it)
+                },
             )
         }
     }

@@ -4,6 +4,13 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("org.jlleitschuh.gradle.ktlint")
+}
+
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
+    ignoreFailures.set(true)
 }
 
 android {
@@ -28,7 +35,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -68,39 +75,38 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)   //Splash Api
+    debugImplementation(libs.androidx.ui.test.manifest) // Splash Api
     implementation(libs.androidx.core.splashscreen)
 
-    //Compose Navigation
+    // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-    //Dagger Hilt
+    // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-
-    //Retrofit
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
-    //Coil
+    // Coil
     implementation("io.coil-kt:coil-compose:2.6.0")
 
-    //Datastore
-    implementation ("androidx.datastore:datastore-preferences:1.1.1")
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
-    //Compose Foundation
-    implementation (libs.androidx.foundation)
+    // Compose Foundation
+    implementation(libs.androidx.foundation)
 
-    //Accompanist
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta")
+    // Accompanist
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta")
 
-    //Paging 3
+    // Paging 3
     implementation("androidx.paging:paging-runtime:3.3.0")
     implementation("androidx.paging:paging-compose:3.3.0")
 
-    //Room
+    // Room
     implementation("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")

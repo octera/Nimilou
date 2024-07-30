@@ -6,11 +6,12 @@ import info.octera.droidstorybox.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 
 class SearchNews(
-    private val newsRepository: NewsRepository
+    private val newsRepository: NewsRepository,
 ) {
-
-    operator fun invoke(searchQuery : String ,sources: List<String>): Flow<PagingData<Article>> {
+    operator fun invoke(
+        searchQuery: String,
+        sources: List<String>,
+    ): Flow<PagingData<Article>> {
         return newsRepository.searchNews(searchQuery = searchQuery, sources = sources)
-
     }
 }

@@ -13,36 +13,46 @@ import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.ui.theme.Black
 
 @Composable
-fun NewsButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
+fun NewsButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit,
+) {
     Button(
-        onClick = onClick, colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = White
-        ), shape = RoundedCornerShape(6.dp)
-    ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold)
-        )
-    }
-
-}
-
-@Composable
-fun NewsTextButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
-    Button(
-        onClick = onClick, colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            contentColor = Black
-        ), shape = RoundedCornerShape(6.dp)
+        onClick = onClick,
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = White,
+            ),
+        shape = RoundedCornerShape(6.dp),
     ) {
         Text(
             text = text,
             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
-            color = Black
         )
     }
 }
 
-
-
+@Composable
+fun NewsTextButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit,
+) {
+    Button(
+        onClick = onClick,
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                contentColor = Black,
+            ),
+        shape = RoundedCornerShape(6.dp),
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
+            color = Black,
+        )
+    }
+}

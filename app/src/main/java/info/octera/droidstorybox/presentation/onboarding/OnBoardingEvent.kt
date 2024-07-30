@@ -1,7 +1,5 @@
 package info.octera.droidstorybox.presentation.onboarding
 
-sealed class OnBoardingEvent  {
-
+sealed class OnBoardingEvent {
     object SaveAppEntry : OnBoardingEvent()
-
 }

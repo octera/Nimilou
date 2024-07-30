@@ -1,7 +1,6 @@
 package info.octera.droidstorybox.presentation.navgraph
 
 sealed class Route(val route: String) {
-
     object OnBoardingScreen : Route(route = "onBoardingScreen")
 
     object HomeScreen : Route(route = "homeScreen")
@@ -17,5 +16,4 @@ sealed class Route(val route: String) {
     object NewsNavigation : Route(route = "newsNavigation")
 
     object NewsNavigatorScreen : Route(route = "newsNavigator")
-
 }

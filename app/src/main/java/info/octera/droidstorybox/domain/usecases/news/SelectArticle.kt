@@ -4,9 +4,9 @@ import info.octera.droidstorybox.domain.model.Article
 import info.octera.droidstorybox.domain.repository.NewsRepository
 
 class SelectArticle(
-    private val newsRepository: NewsRepository
+    private val newsRepository: NewsRepository,
 ) {
-     suspend  operator fun invoke(url: String): Article? {
-      return  newsRepository.getArticle(url)
+    suspend operator fun invoke(url: String): Article? {
+        return newsRepository.getArticle(url)
     }
 }

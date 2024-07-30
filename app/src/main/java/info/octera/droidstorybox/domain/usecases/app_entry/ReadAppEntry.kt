@@ -4,10 +4,9 @@ import info.octera.droidstorybox.domain.manager.LocalUserManager
 import kotlinx.coroutines.flow.Flow
 
 class ReadAppEntry(
-    private val localUserManager : LocalUserManager
+    private val localUserManager: LocalUserManager,
 ) {
-
-      operator fun invoke() : Flow<Boolean> {
-      return  localUserManager.readAppEntry()
+    operator fun invoke(): Flow<Boolean> {
+        return localUserManager.readAppEntry()
     }
 }

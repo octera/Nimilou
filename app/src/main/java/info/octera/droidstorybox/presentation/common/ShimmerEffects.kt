@@ -29,54 +29,62 @@ import info.octera.droidstorybox.presentation.Dimens
 import info.octera.droidstorybox.presentation.Dimens.MediumPadding1
 import info.octera.droidstorybox.ui.theme.NewsAppTheme
 
-
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
-fun Modifier.shimmerEffect() = composed {
-    val transition = rememberInfiniteTransition(label = "")
-    val alpha = transition.animateFloat(
-        initialValue = 0.2f, targetValue = 0.9f, animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000),
-            repeatMode = RepeatMode.Reverse
-        ), label = ""
-    ).value
-    background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
-}
+fun Modifier.shimmerEffect() =
+    composed {
+        val transition = rememberInfiniteTransition(label = "")
+        val alpha =
+            transition.animateFloat(
+                initialValue = 0.2f,
+                targetValue = 0.9f,
+                animationSpec =
+                    infiniteRepeatable(
+                        animation = tween(durationMillis = 1000),
+                        repeatMode = RepeatMode.Reverse,
+                    ),
+                label = "",
+            ).value
+        background(color = colorResource(id = R.color.shimmer).copy(alpha = alpha))
+    }
 
 @Composable
 fun ArticleCardShimmerEffect(modifier: Modifier = Modifier) {
     Row(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Box(
-            modifier = Modifier
-                .size(Dimens.ArticleCardSize)
-                .clip(MaterialTheme.shapes.medium)
-                .shimmerEffect()
+            modifier =
+                Modifier
+                    .size(Dimens.ArticleCardSize)
+                    .clip(MaterialTheme.shapes.medium)
+                    .shimmerEffect(),
         )
         Column(
             verticalArrangement = Arrangement.SpaceAround,
-            modifier = Modifier
-                .padding(horizontal = Dimens.ExtraSmallPadding)
-                .height(Dimens.ArticleCardSize)
+            modifier =
+                Modifier
+                    .padding(horizontal = Dimens.ExtraSmallPadding)
+                    .height(Dimens.ArticleCardSize),
         ) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(30.dp)
-                    .padding(horizontal = MediumPadding1)
-                    .shimmerEffect()
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(30.dp)
+                        .padding(horizontal = MediumPadding1)
+                        .shimmerEffect(),
             )
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                        .padding(horizontal = MediumPadding1)
-                        .height(15.dp)
-                        .shimmerEffect()
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(0.5f)
+                            .padding(horizontal = MediumPadding1)
+                            .height(15.dp)
+                            .shimmerEffect(),
                 )
-
             }
         }
     }
