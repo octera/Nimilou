@@ -7,9 +7,10 @@ sealed class Route(val route: String) {
     data object HomeScreen : Route(route = "homeScreen")
 
     data object PackSourceScreen : Route(route = "packSourceScreen")
-    /*TO BE REMOVED*/
-    data object SearchScreen : Route(route = "searchScreen")
 
+    data object RemotePackScreen : Route(route = "remotePackScreen")
+
+    /*TO BE REMOVED*/
     data object DetailsScreen : Route(route = "detailsScreen")
 
     data object AppStartNavigation : Route(route = "appStartNavigation")

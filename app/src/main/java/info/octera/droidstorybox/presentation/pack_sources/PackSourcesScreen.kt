@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import info.octera.droidstorybox.domain.model.PackSource
+import info.octera.droidstorybox.presentation.PreviewFakeData
 import info.octera.droidstorybox.presentation.common.PackSourcesList
 
 @Composable
@@ -41,10 +42,7 @@ import info.octera.droidstorybox.presentation.common.PackSourcesList
 fun PreviewPackSourcesScreen() {
     PackSourcesScreen(
         state = PackSourcesState(
-            packSources = listOf(
-                PackSource("http://foo.bar/dslfkjslfjsfs", "List 1"),
-                PackSource("http://foo.bar/dslfkjslfjsfs", "List 2")
-            )
+            packSources = PreviewFakeData.packSources
         ),
         addPackSource = {},
         deletePackSource = {},

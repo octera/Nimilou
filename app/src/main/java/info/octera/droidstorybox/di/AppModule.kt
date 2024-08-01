@@ -26,9 +26,12 @@ import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
 import info.octera.droidstorybox.data.local.PackSourcesDao
+import info.octera.droidstorybox.data.remote.BasicHttpSource
+import info.octera.droidstorybox.data.remote.pack_source.PackSourceApi
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
 import info.octera.droidstorybox.domain.usecases.pack_sources.DeletePackSource
+import info.octera.droidstorybox.domain.usecases.pack_sources.FetchPacksFromPackSource
 import info.octera.droidstorybox.domain.usecases.pack_sources.GetPackSources
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
 import info.octera.droidstorybox.domain.usecases.pack_sources.UpsertPackSource
@@ -63,8 +66,23 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePackSourcesRepository(packSourcesDao: PackSourcesDao): PackSourcesRepository {
-        return PackSourcesRepositoryImpl(packSourcesDao)
+    fun provideBasicHttp(): BasicHttpSource {
+        return Retrofit.Builder()
+            .baseUrl("https://dummy")
+            .build()
+            .create(BasicHttpSource::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePackSourceApi(basicHttpSource: BasicHttpSource): PackSourceApi {
+        return PackSourceApi(basicHttpSource)
+    }
+
+    @Provides
+    @Singleton
+    fun providePackSourcesRepository(packSourcesDao: PackSourcesDao, packSourceApi: PackSourceApi): PackSourcesRepository {
+        return PackSourcesRepositoryImpl(packSourcesDao, packSourceApi)
     }
 
     @Provides
@@ -85,6 +103,7 @@ object AppModule {
             getPackSources = GetPackSources(packSourcesRepository),
             deletePackSource = DeletePackSource(packSourcesRepository),
             upsertPackSource = UpsertPackSource(packSourcesRepository),
+            fetchPacksFromPackSource = FetchPacksFromPackSource(packSourcesRepository)
         )
     }
 

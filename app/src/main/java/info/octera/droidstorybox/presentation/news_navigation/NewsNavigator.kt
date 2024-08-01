@@ -32,6 +32,8 @@ import info.octera.droidstorybox.presentation.news_navigation.components.BottomN
 import info.octera.droidstorybox.presentation.news_navigation.components.BottomNavigation
 import info.octera.droidstorybox.presentation.pack_sources.PackSourcesScreen
 import info.octera.droidstorybox.presentation.pack_sources.PackSourcesViewModel
+import info.octera.droidstorybox.presentation.remote_pack.RemotePackScreen
+import info.octera.droidstorybox.presentation.remote_pack.RemotePackViewModel
 import info.octera.droidstorybox.presentation.search.SearchScreen
 import info.octera.droidstorybox.presentation.search.SearchViewModel
 
@@ -41,7 +43,7 @@ fun NewsNavigator() {
     val bottomNavigationItems = remember {
         listOf(
             BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
-            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
+            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Remote Packs"),
             BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = "Pack sources"),
         )
     }
@@ -53,7 +55,7 @@ fun NewsNavigator() {
     }
     selectedItem = when (backStackState?.destination?.route) {
         Route.HomeScreen.route -> 0
-        Route.SearchScreen.route -> 1
+        Route.RemotePackScreen.route -> 1
         Route.PackSourceScreen.route -> 2
         else -> 0
     }
@@ -62,7 +64,7 @@ fun NewsNavigator() {
     val isBottomBarVisible =
         remember(key1 = backStackState) {
             backStackState?.destination?.route == Route.HomeScreen.route ||
-                backStackState?.destination?.route == Route.SearchScreen.route ||
+                backStackState?.destination?.route == Route.RemotePackScreen.route ||
                 backStackState?.destination?.route == Route.PackSourceScreen.route
     }
 
@@ -82,7 +84,7 @@ fun NewsNavigator() {
                         1 ->
                             navigateToTab(
                                 navController = navController,
-                                route = Route.SearchScreen.route,
+                                route = Route.RemotePackScreen.route,
                             )
 
                         2 -> navigateToTab(
@@ -108,7 +110,7 @@ fun NewsNavigator() {
                     navigateToSearch = {
                         navigateToTab(
                             navController = navController,
-                            route = Route.SearchScreen.route,
+                            route = Route.RemotePackScreen.route,
                         )
                     },
                     navigateToDetails = { article ->
@@ -119,19 +121,14 @@ fun NewsNavigator() {
                     },
                 )
             }
-            composable(route = Route.SearchScreen.route) {
-                val viewModel: SearchViewModel = hiltViewModel()
+            composable(route = Route.RemotePackScreen.route) {
+                val viewModel: RemotePackViewModel = hiltViewModel()
                 val state = viewModel.state.value
                 OnBackClickStateSaver(navController = navController)
-                SearchScreen(
+                RemotePackScreen(
                     state = state,
-                    event = viewModel::onEvent,
-                    navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article,
-                        )
-                    },
+                    fetchPacksFromPackSource = viewModel::fetchPacksFromPackSource,
+                    fetchPack = viewModel::fetchPack,
                 )
             }
             composable(route = Route.DetailsScreen.route) {
