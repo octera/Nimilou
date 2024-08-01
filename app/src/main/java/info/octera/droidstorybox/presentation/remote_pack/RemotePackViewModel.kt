@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
+import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
 import info.octera.droidstorybox.presentation.pack_sources.PackSourcesState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RemotePackViewModel @Inject constructor(
-    private val packSourcesUseCases: PackSourcesUseCases
+    private val packSourcesUseCases: PackSourcesUseCases,
+    private val packsUseCases: PacksUseCases
 ) : ViewModel() {
 
     val state = mutableStateOf(RemotePackState())
@@ -38,5 +40,8 @@ class RemotePackViewModel @Inject constructor(
     }
 
     fun fetchPack(remotePack: RemotePack) {
+        viewModelScope.launch {
+            packsUseCases.downloadPack(remotePack)
+        }
     }
 }
