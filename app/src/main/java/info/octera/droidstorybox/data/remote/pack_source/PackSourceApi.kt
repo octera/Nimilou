@@ -1,25 +1,31 @@
 package info.octera.droidstorybox.data.remote.pack_source
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import info.octera.droidstorybox.data.remote.BasicHttpSource
 import info.octera.droidstorybox.data.remote.pack_source.dto.RemotePackDto
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.model.Thumbs
-import khttp.get
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
+import java.lang.reflect.Type
 
 
-class PackSourceApi {
+class PackSourceApi(
+    private val basicHttpSource: BasicHttpSource
+) {
 
     suspend fun fetchPacks(url: String): List<RemotePack> {
         return withContext(Dispatchers.IO) {
-            val response = get(url = url)
-            parseResult(response.text)
+            val response = basicHttpSource.get(url)
+            parseResult(response.body()!!.string())
         }
     }
 
     private fun parseResult(source: String) : List<RemotePack> {
-        return Json.decodeFromString<List<RemotePackDto>>(source)
+        val type = object : TypeToken<List<RemotePackDto>>() {}.type
+        return parseArray<List<RemotePackDto>>(source, type)
             .map { RemotePack(
                 age = it.age,
                 title = it.title,
@@ -30,6 +36,11 @@ class PackSourceApi {
                 updatedAt = it.updatedAt,
                 thumbs = Thumbs(small = it.thumbs.small, medium = it.thumbs.medium)
             ) }
+    }
+
+    private inline fun <reified T> parseArray(json: String, typeToken: Type): T {
+        val gson = GsonBuilder().create()
+        return gson.fromJson<T>(json, typeToken)
     }
 
 }

@@ -26,6 +26,7 @@ import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
 import info.octera.droidstorybox.data.local.PackSourcesDao
+import info.octera.droidstorybox.data.remote.BasicHttpSource
 import info.octera.droidstorybox.data.remote.pack_source.PackSourceApi
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
@@ -65,8 +66,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePackSourceApi(): PackSourceApi {
-        return PackSourceApi()
+    fun provideBasicHttp(): BasicHttpSource {
+        return Retrofit.Builder()
+            .baseUrl("https://dummy")
+            .build()
+            .create(BasicHttpSource::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePackSourceApi(basicHttpSource: BasicHttpSource): PackSourceApi {
+        return PackSourceApi(basicHttpSource)
     }
 
     @Provides
