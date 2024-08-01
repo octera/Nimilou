@@ -11,7 +11,7 @@ class FetchPacksFromPackSource(
     private val packSourcesRepository: PackSourcesRepository
 ) {
 
-    operator fun invoke(packSource: PackSource): Flow<List<RemotePack>> {
+    suspend operator fun invoke(packSource: PackSource): List<RemotePack> {
         return packSourcesRepository.fetchPacksFromPackSource(packSource)
     }
 }

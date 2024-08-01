@@ -8,5 +8,5 @@ interface PackSourcesRepository {
     suspend fun upsertPackSource(packSource: PackSource)
     suspend fun deletePackSource(packSource: PackSource)
     fun getPackSources(): Flow<List<PackSource>>
-    fun fetchPacksFromPackSource(packSource: PackSource): Flow<List<RemotePack>>
+    suspend fun fetchPacksFromPackSource(packSource: PackSource): List<RemotePack>
 }

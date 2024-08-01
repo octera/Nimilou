@@ -32,15 +32,11 @@ class RemotePackViewModel @Inject constructor(
 
     fun fetchPacksFromPackSource(packSource: PackSource) {
         viewModelScope.launch {
-            packSourcesUseCases
-                .fetchPacksFromPackSource(packSource)
-                .onEach {
-                    state.value = state.value.copy(remotePack = it)
-                }.launchIn(viewModelScope)
+            val remotePack = packSourcesUseCases.fetchPacksFromPackSource(packSource)
+            state.value = state.value.copy(remotePack = remotePack)
         }
     }
 
     fun fetchPack(remotePack: RemotePack) {
-
     }
 }

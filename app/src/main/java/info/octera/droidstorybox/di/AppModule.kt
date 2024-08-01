@@ -26,6 +26,7 @@ import info.octera.droidstorybox.domain.usecases.news.UpsertArticle
 import info.octera.droidstorybox.util.Constants.BASE_URL
 import info.octera.droidstorybox.util.Constants.NEW_DATABASE
 import info.octera.droidstorybox.data.local.PackSourcesDao
+import info.octera.droidstorybox.data.remote.pack_source.PackSourceApi
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
 import info.octera.droidstorybox.domain.usecases.pack_sources.DeletePackSource
@@ -64,8 +65,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePackSourcesRepository(packSourcesDao: PackSourcesDao): PackSourcesRepository {
-        return PackSourcesRepositoryImpl(packSourcesDao)
+    fun providePackSourceApi(): PackSourceApi {
+        return PackSourceApi()
+    }
+
+    @Provides
+    @Singleton
+    fun providePackSourcesRepository(packSourcesDao: PackSourcesDao, packSourceApi: PackSourceApi): PackSourcesRepository {
+        return PackSourcesRepositoryImpl(packSourcesDao, packSourceApi)
     }
 
     @Provides

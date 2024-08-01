@@ -1,13 +1,15 @@
 package info.octera.droidstorybox.data.repository
 
 import info.octera.droidstorybox.data.local.PackSourcesDao
+import info.octera.droidstorybox.data.remote.pack_source.PackSourceApi
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
 import kotlinx.coroutines.flow.Flow
 
 class PackSourcesRepositoryImpl(
-    private val packSourcesDao: PackSourcesDao
+    private val packSourcesDao: PackSourcesDao,
+    private val packSourceApi: PackSourceApi
 ) :
     PackSourcesRepository {
 
@@ -23,7 +25,7 @@ class PackSourcesRepositoryImpl(
         return packSourcesDao.getPackSource()
     }
 
-    override fun fetchPacksFromPackSource(packSource: PackSource): Flow<List<RemotePack>> {
-
+    override suspend fun fetchPacksFromPackSource(packSource: PackSource): List<RemotePack> {
+        return packSourceApi.fetchPacks(packSource.url)
     }
 }
