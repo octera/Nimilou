@@ -114,6 +114,7 @@ dependencies {
 
     // OkHttp
     implementation("org.danilopianini:khttp:1.6.3")
+    //noinspection DuplicatePlatformClasses
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     // Coroutine
