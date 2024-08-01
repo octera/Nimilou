@@ -29,6 +29,7 @@ import info.octera.droidstorybox.data.local.PackSourcesDao
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
 import info.octera.droidstorybox.domain.usecases.pack_sources.DeletePackSource
+import info.octera.droidstorybox.domain.usecases.pack_sources.FetchPacksFromPackSource
 import info.octera.droidstorybox.domain.usecases.pack_sources.GetPackSources
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
 import info.octera.droidstorybox.domain.usecases.pack_sources.UpsertPackSource
@@ -85,6 +86,7 @@ object AppModule {
             getPackSources = GetPackSources(packSourcesRepository),
             deletePackSource = DeletePackSource(packSourcesRepository),
             upsertPackSource = UpsertPackSource(packSourcesRepository),
+            fetchPacksFromPackSource = FetchPacksFromPackSource(packSourcesRepository)
         )
     }
 

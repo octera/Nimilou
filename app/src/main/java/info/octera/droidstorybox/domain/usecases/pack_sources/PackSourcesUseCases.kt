@@ -4,4 +4,5 @@ data class PackSourcesUseCases (
     val getPackSources: GetPackSources,
     val upsertPackSource: UpsertPackSource,
     val deletePackSource: DeletePackSource,
+    val fetchPacksFromPackSource: FetchPacksFromPackSource
 )
