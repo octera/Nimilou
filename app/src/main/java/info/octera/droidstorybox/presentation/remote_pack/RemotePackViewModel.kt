@@ -1,31 +1,29 @@
 package info.octera.droidstorybox.presentation.remote_pack
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
-<<<<<<< HEAD
 import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
-=======
->>>>>>> bdaedbf (wip)
-import info.octera.droidstorybox.presentation.pack_sources.PackSourcesState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
 class RemotePackViewModel @Inject constructor(
-<<<<<<< HEAD
     private val packSourcesUseCases: PackSourcesUseCases,
-    private val packsUseCases: PacksUseCases
-=======
-    private val packSourcesUseCases: PackSourcesUseCases/*,
-    private val packsUseCases: PacksUseCases*/
->>>>>>> bdaedbf (wip)
+    private val packsUseCases: PacksUseCases,
+    @ApplicationContext private val appContext: Context
 ) : ViewModel() {
 
     val state = mutableStateOf(RemotePackState())
@@ -48,14 +46,33 @@ class RemotePackViewModel @Inject constructor(
     }
 
     fun fetchPack(remotePack: RemotePack) {
-<<<<<<< HEAD
-        viewModelScope.launch {
-            packsUseCases.downloadPack(remotePack)
-        }
-=======
-    /*    viewModelScope.launch {
-            packsUseCases.downloadPack(remotePack)
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(remotePack.download))
+        browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        appContext.startActivity(browserIntent)
+        /*viewModelScope.launch {
+            packsUseCases.downloadPack(remotePack).collect { downloadState->
+                 when (downloadState) {
+                    is DownloadState.Downloading -> {
+                        Log.d("myTag", "progress=${downloadState.progress}")
+                        state.value = state.value.copy(
+                            downloading = true,
+                            downloadProgress = downloadState.progress
+                        )
+                    }
+                    is DownloadState.Failed -> {
+                        state.value = state.value.copy(
+                            downloading = false,
+                        )
+                        Toast.makeText(appContext, "Download Failed", Toast.LENGTH_LONG)
+                    }
+                    is DownloadState.Finished -> {
+                        state.value = state.value.copy(
+                            downloading = false,
+                        )
+                        Toast.makeText(appContext, "Download Success", Toast.LENGTH_LONG)
+                    }
+                 }
+            }
         }*/
->>>>>>> bdaedbf (wip)
     }
 }

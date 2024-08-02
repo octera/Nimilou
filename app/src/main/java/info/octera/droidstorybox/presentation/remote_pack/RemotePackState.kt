@@ -6,4 +6,6 @@ import info.octera.droidstorybox.domain.model.RemotePack
 data class RemotePackState(
     val packSources: List<PackSource> = emptyList(),
     val remotePack : List<RemotePack> = emptyList(),
+    val downloading: Boolean = false,
+    val downloadProgress: Int = 0,
 )
