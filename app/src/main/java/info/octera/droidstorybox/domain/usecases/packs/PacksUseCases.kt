@@ -2,6 +2,6 @@ package info.octera.droidstorybox.domain.usecases.packs
 
 import javax.inject.Inject
 
-data class PacksUseCases @Inject constructor(
-    val downloadPack: DownloadPack
+data class PacksUseCases constructor(
+    val dummy:String,
 )

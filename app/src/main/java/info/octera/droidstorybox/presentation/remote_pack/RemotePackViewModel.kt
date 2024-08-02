@@ -22,7 +22,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RemotePackViewModel @Inject constructor(
     private val packSourcesUseCases: PackSourcesUseCases,
-    private val packsUseCases: PacksUseCases,
     @ApplicationContext private val appContext: Context
 ) : ViewModel() {
 
@@ -49,30 +48,5 @@ class RemotePackViewModel @Inject constructor(
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(remotePack.download))
         browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         appContext.startActivity(browserIntent)
-        /*viewModelScope.launch {
-            packsUseCases.downloadPack(remotePack).collect { downloadState->
-                 when (downloadState) {
-                    is DownloadState.Downloading -> {
-                        Log.d("myTag", "progress=${downloadState.progress}")
-                        state.value = state.value.copy(
-                            downloading = true,
-                            downloadProgress = downloadState.progress
-                        )
-                    }
-                    is DownloadState.Failed -> {
-                        state.value = state.value.copy(
-                            downloading = false,
-                        )
-                        Toast.makeText(appContext, "Download Failed", Toast.LENGTH_LONG)
-                    }
-                    is DownloadState.Finished -> {
-                        state.value = state.value.copy(
-                            downloading = false,
-                        )
-                        Toast.makeText(appContext, "Download Success", Toast.LENGTH_LONG)
-                    }
-                 }
-            }
-        }*/
     }
 }

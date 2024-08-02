@@ -6,5 +6,4 @@ import info.octera.droidstorybox.domain.model.RemotePack
 import kotlinx.coroutines.flow.Flow
 
 interface PacksRepository {
-    suspend fun downloadPack(packSource: RemotePack): Flow<DownloadState>
 }
