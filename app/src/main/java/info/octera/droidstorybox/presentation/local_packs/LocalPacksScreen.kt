@@ -35,7 +35,7 @@ fun PreviewLocalPacksScreen() {
         state = LocalPacksState(
             packs = PreviewFakeData.localPacks
         ),
-        deletePack= {},
+        deletePack = {},
         addPack = {}
     )
 }
@@ -47,12 +47,13 @@ fun LocalPacksScreen(
     deletePack: (PackMetadata) -> Unit,
     addPack: (Uri) -> Unit
 ) {
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        println("selected file URI ${it.data?.data}")
-        it.data?.data?.let { it1 -> addPack(it1) }
-    }
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            println("selected file URI ${it.data?.data}")
+            it.data?.data?.let { it1 -> addPack(it1) }
+        }
 
-    Scaffold (
+    Scaffold(
         modifier = modifier,
         floatingActionButton = {
             FloatingActionButton(
@@ -98,8 +99,8 @@ fun LocalPacksScreen(
             } else {
                 LocalPackList(
                     packsMetadata = state.packs,
-                    onClick = {deletePack(it)}
-                    )
+                    onClick = { deletePack(it) }
+                )
             }
         }
     }

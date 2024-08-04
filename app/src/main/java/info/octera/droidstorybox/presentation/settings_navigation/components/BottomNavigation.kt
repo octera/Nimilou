@@ -51,13 +51,13 @@ fun BottomNavigation(
                     }
                 },
                 colors =
-                    NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.primary,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        unselectedIconColor = colorResource(id = R.color.body),
-                        unselectedTextColor = colorResource(id = R.color.body),
-                        indicatorColor = MaterialTheme.colorScheme.background,
-                    ),
+                NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = colorResource(id = R.color.body),
+                    unselectedTextColor = colorResource(id = R.color.body),
+                    indicatorColor = MaterialTheme.colorScheme.background,
+                ),
             )
         }
     }
@@ -76,7 +76,10 @@ fun NewsBottomNavigationPreview() {
         BottomNavigation(items = listOf(
             BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
             BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
-            BottomNavigationItem(icon = R.drawable.baseline_bookmark_border_24, text = "Bookmark"),
+            BottomNavigationItem(
+                icon = R.drawable.baseline_bookmark_border_24,
+                text = "Bookmark"
+            ),
         ), selectedItem = 0, onItemClick = {})
     }
 }

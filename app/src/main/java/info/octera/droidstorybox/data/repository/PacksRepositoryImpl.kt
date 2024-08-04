@@ -26,7 +26,7 @@ import javax.inject.Inject
 class PacksRepositoryImpl @Inject constructor(
     @ApplicationContext private val appContext: Context,
     private val fileSource: FileSource
-):PacksRepository {
+) : PacksRepository {
     private val location = "packs"
 
     override fun getPacksFile(): List<File> {
@@ -54,7 +54,7 @@ class PacksRepositoryImpl @Inject constructor(
     private suspend fun copyStreamWithProgress(
         inputStream: InputStream,
         outputStream: OutputStream,
-        totalBytes : Int = -1
+        totalBytes: Int = -1
     ): Flow<ProgressState> {
         return flow {
             emit(ProgressState.Progressing(0))

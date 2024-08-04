@@ -15,26 +15,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel
-    @Inject
-    constructor(
-        private val appEntryUseCases: AppEntryUseCases,
-    ) :
+@Inject
+constructor(
+    private val appEntryUseCases: AppEntryUseCases,
+) :
     ViewModel() {
-        var splashCondition by mutableStateOf(true)
-            private set
+    var splashCondition by mutableStateOf(true)
+        private set
 
-        var startDestination by mutableStateOf(Route.OnBoardingScreen.route)
-            private set
+    var startDestination by mutableStateOf(Route.OnBoardingScreen.route)
+        private set
 
-        init {
-            appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
-                if (shouldStartFromHomeScreen) {
-                    startDestination = Route.HomeScreen.route
-                } else {
-                    startDestination = Route.OnBoardingScreen.route
-                }
-                delay(300)
-                splashCondition = false
-            }.launchIn(viewModelScope)
-        }
+    init {
+        appEntryUseCases.readAppEntry().onEach { shouldStartFromHomeScreen ->
+            if (shouldStartFromHomeScreen) {
+                startDestination = Route.HomeScreen.route
+            } else {
+                startDestination = Route.OnBoardingScreen.route
+            }
+            delay(300)
+            splashCondition = false
+        }.launchIn(viewModelScope)
     }
+}

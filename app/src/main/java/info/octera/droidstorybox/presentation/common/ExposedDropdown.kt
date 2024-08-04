@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 
 data class MyDropDownMenuItem<T>(
     val label: String,
-    val entity : T
+    val entity: T
 )
 
 @Composable

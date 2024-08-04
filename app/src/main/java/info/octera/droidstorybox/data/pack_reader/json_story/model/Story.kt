@@ -1,6 +1,6 @@
 package info.octera.droidstorybox.data.pack_reader.json_story.model
 
-data class Story (
+data class Story(
     val format: String,
     val title: String,
     val version: Int,

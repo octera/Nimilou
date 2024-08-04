@@ -37,6 +37,7 @@ class LocalPacksViewModel @Inject constructor(
                     is ProgressState.Failed -> {
                         Toast.makeText(appContext, "Copy Failed", Toast.LENGTH_LONG)
                     }
+
                     is ProgressState.Finished -> {
                         Toast.makeText(appContext, "Copy Success", Toast.LENGTH_LONG)
                         getPacks()

@@ -1,33 +1,25 @@
 package info.octera.droidstorybox.presentation.home
 
-import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
@@ -35,15 +27,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
-import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,23 +37,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
-import androidx.paging.compose.LazyPagingItems
 import coil.compose.rememberAsyncImagePainter
-import info.octera.droidstorybox.R
-import info.octera.droidstorybox.domain.model.Article
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
-import info.octera.droidstorybox.presentation.Dimens.MediumPadding1
-import info.octera.droidstorybox.presentation.Dimens.MediumPadding2
 import info.octera.droidstorybox.presentation.PreviewFakeData
-import info.octera.droidstorybox.presentation.common.ArticlesList
-import info.octera.droidstorybox.presentation.common.SearchBar
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
@@ -90,7 +66,7 @@ fun HomeScreen(
     val pagerState = rememberPagerState { packs.count() }
     val coroutineScope = rememberCoroutineScope()
 
-    Scaffold (
+    Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         floatingActionButton = {
@@ -105,13 +81,13 @@ fun HomeScreen(
             }
         }
     ) { paddingValues ->
-        Column (
+        Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .background(Color(230, 164, 195))
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
-        ){
+        ) {
             HorizontalPager(
                 state = pagerState,
                 modifier = Modifier
@@ -121,7 +97,7 @@ fun HomeScreen(
                 pageSpacing = 8.dp
             ) { page ->
                 val item = packs[page]
-                Card (
+                Card(
                     modifier = Modifier
                         .graphicsLayer {
                             // Calculate the absolute offset for the current page from the
@@ -140,8 +116,8 @@ fun HomeScreen(
                             )
                         }
 
-                ){
-                    Column (
+                ) {
+                    Column(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -167,38 +143,47 @@ fun HomeScreen(
             Row(modifier = Modifier.padding(0.dp, 20.dp)) {
                 IconButton(
                     modifier = Modifier.fillMaxWidth(0.33F),
-                    onClick = {coroutineScope.launch {
-                        if (pagerState.canScrollBackward) {
-                            pagerState.animateScrollToPage(pagerState.currentPage-1)
+                    onClick = {
+                        coroutineScope.launch {
+                            if (pagerState.canScrollBackward) {
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
+                            }
                         }
-                    }},
-                    )
+                    },
+                )
                 {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         "",
-                        modifier = Modifier.size(128.dp))
+                        modifier = Modifier.size(128.dp)
+                    )
                 }
                 IconButton(
                     modifier = Modifier.fillMaxWidth(0.5F),
-                    onClick = { /*TODO*/ }, ) {
+                    onClick = { /*TODO*/ },
+                ) {
                     Icon(
                         Icons.Filled.PlayArrow,
                         "",
-                        modifier = Modifier.size(128.dp))
+                        modifier = Modifier.size(128.dp)
+                    )
                 }
                 IconButton(
                     modifier = Modifier.fillMaxWidth(1.0F),
-                    onClick = {coroutineScope.launch {
-                        if (pagerState.canScrollForward) {
-                            pagerState.animateScrollToPage(pagerState.currentPage+1)
+                    onClick = {
+                        coroutineScope.launch {
+                            if (pagerState.canScrollForward) {
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                            }
                         }
-                    }},)
+                    },
+                )
                 {
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowForward,
                         "",
-                        modifier = Modifier.size(128.dp))
+                        modifier = Modifier.size(128.dp)
+                    )
                 }
             }
         }
