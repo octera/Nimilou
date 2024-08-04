@@ -1,4 +1,4 @@
-package info.octera.droidstorybox.presentation.news_navigation.components
+package info.octera.droidstorybox.presentation.settings_navigation.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
