@@ -6,8 +6,9 @@ import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class PackSourcesRepositoryImpl(
+class PackSourcesRepositoryImpl @Inject constructor(
     private val packSourcesDao: PackSourcesDao,
     private val packSourceApi: PackSourceApi
 ) :

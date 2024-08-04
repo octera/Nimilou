@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -20,8 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.presentation.Dimens.IndicatorSize
-import info.octera.droidstorybox.presentation.common.NewsButton
-import info.octera.droidstorybox.presentation.common.NewsTextButton
 import info.octera.droidstorybox.presentation.onboarding.OnBoardingEvent
 import info.octera.droidstorybox.presentation.onboarding.pages
 import kotlinx.coroutines.launch
@@ -56,10 +56,10 @@ fun OnBoardingScreen(
         Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier =
-                modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .navigationBarsPadding(),
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp)
+                .navigationBarsPadding(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -76,14 +76,16 @@ fun OnBoardingScreen(
                 val scope = rememberCoroutineScope()
 
                 if (buttonState.value[0].isNotEmpty()) {
-                    NewsTextButton(text = buttonState.value[0], onClick = {
+                    Button(onClick = {
                         scope.launch {
                             pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
                         }
-                    })
+                    }) {
+                        Text(text = buttonState.value[0])
+                    }
                 }
                 Spacer(modifier = Modifier.width(10.dp))
-                NewsButton(text = buttonState.value[1], onClick = {
+                Button(onClick = {
                     scope.launch {
                         if (pagerState.currentPage == 2) {
                             event(OnBoardingEvent.SaveAppEntry)
@@ -91,7 +93,9 @@ fun OnBoardingScreen(
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)
                         }
                     }
-                })
+                }) {
+                    Text(text = buttonState.value[1])
+                }
             }
         }
         Spacer(modifier = Modifier.weight(0.5f))

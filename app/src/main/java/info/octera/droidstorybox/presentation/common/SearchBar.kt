@@ -55,9 +55,9 @@ fun SearchBar(
     Box(modifier = modifier) {
         TextField(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .searchBar(),
+            Modifier
+                .fillMaxWidth()
+                .searchBar(),
             value = text,
             onValueChange = onValueChange,
             readOnly = readOnly,
@@ -78,23 +78,23 @@ fun SearchBar(
             },
             shape = MaterialTheme.shapes.medium,
             colors =
-                TextFieldDefaults.colors(
-                    focusedContainerColor = colorResource(id = R.color.input_background),
-                    focusedTextColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                    cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                    disabledIndicatorColor = Color.Transparent,
-                    errorIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                ),
+            TextFieldDefaults.colors(
+                focusedContainerColor = colorResource(id = R.color.input_background),
+                focusedTextColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                disabledIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+            ),
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions =
-                KeyboardActions(
-                    onSearch = {
-                        onSearch()
-                    },
-                ),
+            KeyboardActions(
+                onSearch = {
+                    onSearch()
+                },
+            ),
             textStyle = MaterialTheme.typography.bodySmall,
             interactionSource = interactionSource,
         )

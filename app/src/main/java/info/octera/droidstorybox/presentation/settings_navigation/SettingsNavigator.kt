@@ -1,21 +1,17 @@
 package info.octera.droidstorybox.presentation.settings_navigation
 
 import android.app.Activity
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -31,19 +27,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import info.octera.droidstorybox.R
-import info.octera.droidstorybox.domain.model.Article
-import info.octera.droidstorybox.presentation.details.DetailViewModel
-import info.octera.droidstorybox.presentation.details.DetailsEvent
-import info.octera.droidstorybox.presentation.details.DetailsScreen
 import info.octera.droidstorybox.presentation.local_packs.LocalPacksScreen
 import info.octera.droidstorybox.presentation.local_packs.LocalPacksViewModel
 import info.octera.droidstorybox.presentation.navgraph.Route
-import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigationItem
-import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigation
 import info.octera.droidstorybox.presentation.pack_sources.PackSourcesScreen
 import info.octera.droidstorybox.presentation.pack_sources.PackSourcesViewModel
 import info.octera.droidstorybox.presentation.remote_pack.RemotePackScreen
 import info.octera.droidstorybox.presentation.remote_pack.RemotePackViewModel
+import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigation
+import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigationItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,7 +45,10 @@ fun SettingsNavigator() {
         listOf(
             BottomNavigationItem(icon = R.drawable.baseline_local_library_24, text = "Packs"),
             BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Remote Packs"),
-            BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = "Pack sources"),
+            BottomNavigationItem(
+                icon = R.drawable.baseline_cloud_download_24,
+                text = "Pack sources"
+            ),
         )
     }
 
@@ -74,18 +69,18 @@ fun SettingsNavigator() {
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                        IconButton(onClick = {
-                            if (navController.previousBackStackEntry != null) {
-                                navController.navigateUp()
-                            } else {
-                                context.onBackPressed()
-                            }
-                        }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
+                    IconButton(onClick = {
+                        if (navController.previousBackStackEntry != null) {
+                            navController.navigateUp()
+                        } else {
+                            context.onBackPressed()
                         }
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 },
                 /*colors = topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -98,19 +93,21 @@ fun SettingsNavigator() {
         },
 
         bottomBar = {
-        BottomNavigation(
+            BottomNavigation(
                 items = bottomNavigationItems,
                 selectedItem = selectedItem,
                 onItemClick = { index ->
                     when (index) {
                         0 -> navigateToTab(
-                                navController = navController,
-                                route = Route.LocalPackScreen.route,
-                            )
+                            navController = navController,
+                            route = Route.LocalPackScreen.route,
+                        )
+
                         1 -> navigateToTab(
-                                navController = navController,
-                                route = Route.RemotePackScreen.route,
-                            )
+                            navController = navController,
+                            route = Route.RemotePackScreen.route,
+                        )
+
                         2 -> navigateToTab(
                             navController = navController,
                             route = Route.PackSourceScreen.route

@@ -80,15 +80,15 @@ fun EmptyContent(
             contentDescription = null,
             tint = if (isSystemInDarkTheme()) LightGray else DarkGray,
             modifier =
-                Modifier
-                    .size(120.dp)
-                    .alpha(alphaAnim),
+            Modifier
+                .size(120.dp)
+                .alpha(alphaAnim),
         )
         Text(
             modifier =
-                Modifier
-                    .padding(10.dp)
-                    .alpha(alphaAnim),
+            Modifier
+                .padding(10.dp)
+                .alpha(alphaAnim),
             text = message,
             style = MaterialTheme.typography.bodyMedium,
             color = if (isSystemInDarkTheme()) LightGray else DarkGray,

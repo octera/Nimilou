@@ -9,8 +9,8 @@ import retrofit2.http.Url
 interface BasicHttpSource {
     @Streaming
     @GET
-    suspend fun downloadFile(@Url fileUrl:String): Response<ResponseBody>
+    suspend fun downloadFile(@Url fileUrl: String): Response<ResponseBody>
 
     @GET
-    suspend fun get(@Url resourceUrl: String) : Response<ResponseBody>
+    suspend fun get(@Url resourceUrl: String): Response<ResponseBody>
 }

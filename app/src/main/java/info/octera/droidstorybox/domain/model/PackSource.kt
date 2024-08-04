@@ -10,4 +10,4 @@ import kotlinx.parcelize.Parcelize
 data class PackSource(
     @PrimaryKey val url: String,
     val name: String
-): Parcelable
+) : Parcelable

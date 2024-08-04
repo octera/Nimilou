@@ -15,11 +15,11 @@ class PackWithJsonStoryReader {
 
     fun readPackMetaData(file: File): PackMetadata {
         ZipFile(file).use { zip ->
-            val storyEntry = zip.entries().asSequence().first{it.name == storyRootFileName}
+            val storyEntry = zip.entries().asSequence().first { it.name == storyRootFileName }
             val storyReader = InputStreamReader(zip.getInputStream(storyEntry))
             val story = GsonBuilder().create().fromJson(storyReader, Story::class.java)
 
-            val thumbnailEntry = zip.entries().asSequence().first{it.name == thumbnailFileName}
+            val thumbnailEntry = zip.entries().asSequence().first { it.name == thumbnailFileName }
             val thumbnail = zip.getInputStream(thumbnailEntry).readBytes()
 
             return PackMetadata(
@@ -35,7 +35,7 @@ class PackWithJsonStoryReader {
         }
     }
 
-    private fun getAgeFromFilename(fileName : String): Int {
+    private fun getAgeFromFilename(fileName: String): Int {
         val match = Regex("(\\d*).*").find(fileName)
         if (match != null) {
             val (age) = match.destructured

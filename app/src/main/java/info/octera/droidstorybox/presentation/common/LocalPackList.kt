@@ -35,7 +35,7 @@ fun PreviewLocalPackList() {
     LocalPackList(
         packsMetadata = PreviewFakeData.localPacks,
         onClick = {}
-        )
+    )
 }
 
 @Composable
@@ -52,9 +52,9 @@ fun LocalPackList(
         items(
             count = packsMetadata.size,
         ) {
-            LocalPacksListItem(packMetadata = packsMetadata[it], onClick= onClick)
-            }
+            LocalPacksListItem(packMetadata = packsMetadata[it], onClick = onClick)
         }
+    }
 }
 
 @Composable
@@ -87,7 +87,7 @@ fun LocalPacksListItem(packMetadata: PackMetadata, onClick: (PackMetadata) -> Un
                     style = MaterialTheme.typography.labelSmall.copy()
                 )
                 Text(
-                    modifier = Modifier.padding(0.dp, 8.dp, 0.dp,0.dp),
+                    modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
                     text = packMetadata.description,
                     style = MaterialTheme.typography.bodySmall.copy()
                 )

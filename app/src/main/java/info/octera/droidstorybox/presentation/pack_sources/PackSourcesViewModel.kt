@@ -30,9 +30,9 @@ class PackSourcesViewModel @Inject constructor(
     }
 
     fun addPackSource(packSource: PackSource) {
-       viewModelScope.launch {
-           packSourcesUseCases.upsertPackSource(packSource)
-       }
+        viewModelScope.launch {
+            packSourcesUseCases.upsertPackSource(packSource)
+        }
     }
 
     fun deletePackSource(packSource: PackSource) {

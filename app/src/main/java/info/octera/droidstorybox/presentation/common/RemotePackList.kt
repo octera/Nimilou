@@ -2,17 +2,11 @@ package info.octera.droidstorybox.presentation.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
@@ -21,23 +15,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import info.octera.droidstorybox.R
-import info.octera.droidstorybox.domain.model.Article
-import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.presentation.Dimens.ArticleCardSize
 import info.octera.droidstorybox.presentation.Dimens.ExtraSmallPadding2
-import info.octera.droidstorybox.presentation.Dimens.MediumPadding1
 import info.octera.droidstorybox.presentation.PreviewFakeData
 
 @Composable
@@ -88,7 +76,8 @@ fun RemotePackListItem(remotePack: RemotePack, onClick: (RemotePack) -> Unit) {
             IconButton(onClick = { onClick(remotePack) }) {
                 Icon(
                     painter = painterResource(id = R.drawable.baseline_cloud_download_24),
-                    "Delete Item")
+                    "Delete Item"
+                )
             }
         },
         headlineContent = {
@@ -105,7 +94,7 @@ fun RemotePackListItem(remotePack: RemotePack, onClick: (RemotePack) -> Unit) {
                     style = MaterialTheme.typography.labelSmall.copy()
                 )
                 Text(
-                    modifier = Modifier.padding(0.dp, 8.dp, 0.dp,0.dp),
+                    modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
                     text = remotePack.description,
                     style = MaterialTheme.typography.bodySmall.copy()
                 )

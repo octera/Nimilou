@@ -8,8 +8,7 @@ import javax.inject.Inject
 
 class FileSource @Inject constructor(
     @ApplicationContext private val appContext: Context
-)
-{
+) {
     fun getOutputStreamToFile(location: String, fileName: String): FileOutputStream {
         val destinationFile = File(buildDir(location), fileName)
         return destinationFile.outputStream()
