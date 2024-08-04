@@ -28,8 +28,10 @@ import info.octera.droidstorybox.util.Constants.NEW_DATABASE
 import info.octera.droidstorybox.data.local.PackSourcesDao
 import info.octera.droidstorybox.data.remote.BasicHttpSource
 import info.octera.droidstorybox.data.remote.pack_source.PackSourceApi
+import info.octera.droidstorybox.data.repository.PackRepositoryImpl
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
 import info.octera.droidstorybox.data.repository.PacksRepositoryImpl
+import info.octera.droidstorybox.domain.repository.PackRepository
 import info.octera.droidstorybox.domain.repository.PackSourcesRepository
 import info.octera.droidstorybox.domain.repository.PacksRepository
 import info.octera.droidstorybox.domain.usecases.pack_sources.DeletePackSource
@@ -90,6 +92,12 @@ object AppModule {
     @Provides
     @Singleton
     fun providePacksRepository(impl : PacksRepositoryImpl): PacksRepository {
+        return impl
+    }
+
+    @Provides
+    @Singleton
+    fun providePackRepository(impl : PackRepositoryImpl): PackRepository {
         return impl
     }
 

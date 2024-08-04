@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken
 import info.octera.droidstorybox.data.remote.BasicHttpSource
 import info.octera.droidstorybox.data.remote.pack_source.dto.RemotePackDto
 import info.octera.droidstorybox.domain.model.RemotePack
-import info.octera.droidstorybox.domain.model.Thumbs
+import info.octera.droidstorybox.domain.model.RemoteThumbs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.reflect.Type
@@ -34,7 +34,7 @@ class PackSourceApi(
                 awards = it.awards,
                 createdAt = it.createdAt,
                 updatedAt = it.updatedAt,
-                thumbs = Thumbs(small = it.thumbs.small, medium = it.thumbs.medium)
+                thumbs = RemoteThumbs(small = it.thumbs.small, medium = it.thumbs.medium)
             ) }
     }
 
