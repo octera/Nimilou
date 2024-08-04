@@ -27,6 +27,8 @@ import info.octera.droidstorybox.presentation.details.DetailsEvent
 import info.octera.droidstorybox.presentation.details.DetailsScreen
 import info.octera.droidstorybox.presentation.home.HomeScreen
 import info.octera.droidstorybox.presentation.home.HomeViewModel
+import info.octera.droidstorybox.presentation.local_packs.LocalPacksScreen
+import info.octera.droidstorybox.presentation.local_packs.LocalPacksViewModel
 import info.octera.droidstorybox.presentation.navgraph.Route
 import info.octera.droidstorybox.presentation.news_navigation.components.BottomNavigationItem
 import info.octera.droidstorybox.presentation.news_navigation.components.BottomNavigation
@@ -42,7 +44,7 @@ fun NewsNavigator() {
 
     val bottomNavigationItems = remember {
         listOf(
-            BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
+            BottomNavigationItem(icon = R.drawable.baseline_local_library_24, text = "Packs"),
             BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Remote Packs"),
             BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = "Pack sources"),
         )
@@ -54,7 +56,7 @@ fun NewsNavigator() {
         mutableIntStateOf(0)
     }
     selectedItem = when (backStackState?.destination?.route) {
-        Route.HomeScreen.route -> 0
+        Route.LocalPackScreen.route -> 0
         Route.RemotePackScreen.route -> 1
         Route.PackSourceScreen.route -> 2
         else -> 0
@@ -63,7 +65,7 @@ fun NewsNavigator() {
     // Hide the bottom navigation when the user is in the details screen
     val isBottomBarVisible =
         remember(key1 = backStackState) {
-            backStackState?.destination?.route == Route.HomeScreen.route ||
+            backStackState?.destination?.route == Route.LocalPackScreen.route ||
                 backStackState?.destination?.route == Route.RemotePackScreen.route ||
                 backStackState?.destination?.route == Route.PackSourceScreen.route
     }
@@ -78,7 +80,7 @@ fun NewsNavigator() {
                         0 ->
                             navigateToTab(
                                 navController = navController,
-                                route = Route.HomeScreen.route,
+                                route = Route.LocalPackScreen.route,
                             )
 
                         1 ->
@@ -99,26 +101,16 @@ fun NewsNavigator() {
         val bottomPadding = it.calculateBottomPadding()
         NavHost(
             navController = navController,
-            startDestination = Route.HomeScreen.route,
+            startDestination = Route.LocalPackScreen.route,
             modifier = Modifier.padding(bottom = bottomPadding),
         ) {
-            composable(route = Route.HomeScreen.route) { backStackEntry ->
-                val viewModel: HomeViewModel = hiltViewModel()
-                val articles = viewModel.news.collectAsLazyPagingItems()
-                HomeScreen(
-                    articles = articles,
-                    navigateToSearch = {
-                        navigateToTab(
-                            navController = navController,
-                            route = Route.RemotePackScreen.route,
-                        )
-                    },
-                    navigateToDetails = { article ->
-                        navigateToDetails(
-                            navController = navController,
-                            article = article,
-                        )
-                    },
+            composable(route = Route.LocalPackScreen.route) { backStackEntry ->
+                val viewModel: LocalPacksViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                LocalPacksScreen(
+                    state = state,
+                    addPack = viewModel::addPack,
+                    deletePack = viewModel::deletePack
                 )
             }
             composable(route = Route.RemotePackScreen.route) {
@@ -166,7 +158,7 @@ fun OnBackClickStateSaver(navController: NavController) {
     BackHandler(true) {
         navigateToTab(
             navController = navController,
-            route = Route.HomeScreen.route,
+            route = Route.LocalPackScreen.route,
         )
     }
 }
