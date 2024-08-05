@@ -30,7 +30,10 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,9 +44,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import androidx.media3.exoplayer.ExoPlayer
 import coil.compose.rememberAsyncImagePainter
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.presentation.PreviewFakeData
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
@@ -52,19 +58,28 @@ import kotlin.math.absoluteValue
 fun PreviewHomeScreeen() {
     HomeScreen(
         packs = PreviewFakeData.localPacks,
-        onSettingsClicked = {}
+        onSettingsClicked = {},
+        onPackFocused = {}
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(FlowPreview::class)
 @Composable
 fun HomeScreen(
     packs: List<PackMetadata>,
-    onSettingsClicked: () -> Unit
+    onSettingsClicked: () -> Unit,
+    onPackFocused: (PackMetadata) -> Unit
 ) {
-    val context = LocalContext.current
     val pagerState = rememberPagerState { packs.count() }
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }
+            .debounce(500)
+            .collect { page ->
+                onPackFocused(packs[page])
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -73,7 +88,6 @@ fun HomeScreen(
             FloatingActionButton(
                 shape = CircleShape,
                 onClick = {
-                    Toast.makeText(context, "Please press longer", Toast.LENGTH_SHORT).show()
                     onSettingsClicked()
                 },
             ) {

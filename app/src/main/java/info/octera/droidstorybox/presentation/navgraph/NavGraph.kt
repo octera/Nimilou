@@ -26,7 +26,8 @@ fun NavGraph(startDestination: String) {
             val state = viewModel.state.value
             HomeScreen(
                 packs = state.packs,
-                onSettingsClicked = { navigateToSettings(navController) }
+                onSettingsClicked = { navigateToSettings(navController) },
+                onPackFocused = viewModel::setPackFocused
             )
         }
         composable(route = Route.SettingsScreen.route) {
