@@ -30,7 +30,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMediaPlayerManager(application: Application): MediaPlayerManager {
-        return ExoMediaPlayerManager(ExoPlayer.Builder(application).build())
+        val player = ExoPlayer
+            .Builder(application)
+            .build()
+        return ExoMediaPlayerManager(player)
     }
 
     @Provides

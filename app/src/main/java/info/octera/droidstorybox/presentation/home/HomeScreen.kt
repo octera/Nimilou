@@ -73,11 +73,13 @@ fun HomeScreen(
     val pagerState = rememberPagerState { packs.count() }
     val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(pagerState) {
-        snapshotFlow { pagerState.currentPage }
-            .debounce(500)
-            .collect { page ->
-                onPackFocused(packs[page])
+    if(packs.isNotEmpty()) {
+        LaunchedEffect(pagerState) {
+            snapshotFlow { pagerState.currentPage }
+                .debounce(500)
+                .collect { page ->
+                    onPackFocused(packs[page])
+                }
         }
     }
 

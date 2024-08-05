@@ -1,5 +1,6 @@
 package info.octera.droidstorybox.data.pack_reader.json_story
 
+import android.net.Uri
 import androidx.core.net.toUri
 import com.google.gson.GsonBuilder
 import info.octera.droidstorybox.data.pack_reader.json_story.model.Story
@@ -71,7 +72,7 @@ class PackWithJsonStoryReader {
 
             return Pack(
                 metadata = metaData,
-                stages = story.stageNodes.map(::convertToStage),
+                stages = story.stageNodes.map{convertToStage(file, it)},
                 actions = story.actionNodes.map(::convertToAction),
             )
         }
@@ -87,13 +88,13 @@ class PackWithJsonStoryReader {
         return zip.getInputStream(thumbnailEntry).readBytes()
     }
 
-    private fun convertToStage(storyStageNode: StoryStageNode): Stage {
+    private fun convertToStage(file:File, storyStageNode: StoryStageNode): Stage {
         return Stage(
             uuid = storyStageNode.uuid,
             type = mapStageType(storyStageNode.type),
             name = storyStageNode.name,
             image = storyStageNode.image,
-            audio = storyStageNode.audio,
+            audio = Uri.parse(file.toString() + "##" + storyStageNode.audio),
             okTransition = mapTransition(storyStageNode.okTransition),
             homeTransition = mapTransition(storyStageNode.homeTransition),
             controlSettings = mapControlSettings(storyStageNode.controlSettings),
@@ -123,6 +124,10 @@ class PackWithJsonStoryReader {
     private fun mapStageType(type: StoryStageType): StageType {
         return when (type) {
             StoryStageType.STAGE -> StageType.STAGE
+            StoryStageType.STORY -> StageType.STORY
+            StoryStageType.COVER -> StageType.COVER
+            StoryStageType.MENU_QUESTIONSTAGE -> TODO()
+            StoryStageType.MENU_OPTIONSTAGE -> TODO()
         }
     }
 

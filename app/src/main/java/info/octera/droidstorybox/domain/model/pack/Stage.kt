@@ -1,5 +1,6 @@
 package info.octera.droidstorybox.domain.model.pack
 
+import android.net.Uri
 import java.util.UUID
 
 data class Stage(
@@ -7,7 +8,7 @@ data class Stage(
     val type: StageType,
     val name: String,
     val image: String?,
-    val audio: String,
+    val audio: Uri,
     val okTransition: Transition?,
     val homeTransition: Transition?,
     val controlSettings: ControlSettings,

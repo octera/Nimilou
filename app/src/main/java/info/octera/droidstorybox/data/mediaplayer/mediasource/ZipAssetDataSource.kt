@@ -1,4 +1,4 @@
-package info.octera.droidstorybox.data.mediaplayer
+package info.octera.droidstorybox.data.mediaplayer.mediasource
 
 import android.net.Uri
 import androidx.annotation.OptIn
@@ -9,19 +9,25 @@ import androidx.media3.datasource.DataSpec
 import androidx.media3.datasource.TransferListener
 import java.io.EOFException
 import java.io.File
+import java.io.IOException
 import java.io.InputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 @OptIn(UnstableApi::class)
-class ZipAssetMediaSource() : DataSource{
+class ZipAssetDataSource() : DataSource{
+    companion object {
+        val URI_SCHEME : String = "pack"
+    }
+    private var dataspec: DataSpec? = null
+    private var listener: TransferListener? = null
     private var zis: InputStream? = null
     private var entry: ZipEntry? = null
     private var uri: Uri? = null
     private var zipFile : ZipFile? = null
 
     override fun open(dataSpec: DataSpec): Long {
-        if (dataSpec.uri.scheme != "pack") {
+        if (dataSpec.uri.scheme != URI_SCHEME) {
             throw IllegalStateException("bad URI scheme :" + dataSpec.uri)
         }
         if (dataSpec.uri.path?.contains("##") != true) {
@@ -38,50 +44,67 @@ class ZipAssetMediaSource() : DataSource{
         val zis = this.zipFile!!.getInputStream(entry)
         this.zis = zis
 
-        val skipped = zis.skip(dataSpec.position)
-        if (skipped < dataSpec.position) {
-            // assetManager.open() returns an AssetInputStream, whose skip() implementation only skips
-            // fewer bytes than requested if the skip is beyond the end of the asset's data.
-            throw EOFException()
+        if (dataSpec.position == entry.size) {
+            return C.RESULT_END_OF_INPUT.toLong()
         }
 
-        var bytesRemaining = 0L
-        if (dataSpec.length.toInt() != C.LENGTH_UNSET) {
-            bytesRemaining = dataSpec.length;
-        } else {
-            bytesRemaining = zis.available().toLong()
-            if (bytesRemaining.toInt() == Integer.MAX_VALUE) {
-                // assetManager.open() returns an AssetInputStream, whose available() implementation
-                // returns Integer.MAX_VALUE if the remaining length is greater than (or equal to)
-                // Integer.MAX_VALUE. We don't know the true length in this case, so treat as unbounded.
-                bytesRemaining = C.LENGTH_UNSET.toLong();
-            }
+        if (dataSpec.position == entry.size) {
+            throw IOException()
         }
+        this.dataspec = dataSpec
 
+        zis.skip(dataSpec.position)
 
-        return entry!!.size
-
+        return entry!!.size - dataSpec.position
     }
 
-    override fun read(buffer: ByteArray, offset: Int, length: Int): Int {
-        TODO("Not yet implemented")
+    override fun read(buffer: ByteArray, offset: Int, readLength: Int): Int {
+        if (this.zis == null) throw IOException("Attemp to read a non openend stream")
+
+        val zis = this.zis!!
+        val bytesRemaining = zis.available()
+
+        if (readLength == 0) {
+            return 0
+        } else if (bytesRemaining == 0) {
+            return C.RESULT_END_OF_INPUT;
+        }
+
+        val bytesToRead = if (bytesRemaining == C.LENGTH_UNSET)
+            readLength else Math.min(bytesRemaining, readLength)
+
+        val bytesRead = zis.read(buffer, offset, bytesToRead);
+
+        if (bytesRead == -1) {
+            if (bytesRemaining != C.LENGTH_UNSET) {
+                // End of stream reached having not read sufficient data.
+                throw IOException(EOFException())
+            }
+            return C.RESULT_END_OF_INPUT;
+        }
+        dataspec?.let { listener?.onBytesTransferred(this, it, false, bytesRead) };
+
+        return bytesRead;
     }
 
     override fun addTransferListener(transferListener: TransferListener) {
-        TODO("Not yet implemented")
+        this.listener = transferListener
     }
-
-
 
     override fun getUri(): Uri? {
         return uri
     }
 
     override fun close() {
-        TODO("Not yet implemented")
+        this.zis?.close()
+        this.zipFile?.close()
+        this.uri = null
+        this.entry = null
+        this.listener = null
+        this.dataspec = null
     }
 }
-
+/*
 private final TransferListener<? super OBBDataSource> listener;
 
 private Uri uri;
@@ -220,4 +243,4 @@ private InputStream getInputStreamFromExpansionAPKFile(String fileName){
         return null;
     }
 
-}
+}*/
