@@ -1,6 +1,7 @@
 package info.octera.droidstorybox.data.repository
 
 import info.octera.droidstorybox.data.pack_reader.json_story.PackWithJsonStoryReader
+import info.octera.droidstorybox.domain.model.pack.Pack
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.domain.repository.PackRepository
 import java.io.File
@@ -15,5 +16,10 @@ class PackRepositoryImpl @Inject constructor() : PackRepository {
     override fun readPackMetaData(file: File): PackMetadata {
         val reader = detectPackReader(file)
         return reader.readPackMetaData(file)
+    }
+
+    override fun readPack(file: File) : Pack {
+        val reader = detectPackReader(file)
+        return reader.readPack(file)
     }
 }
