@@ -10,7 +10,7 @@ class PlayIntro @Inject constructor(
     private val playerManager: MediaPlayerManager
 ) {
     operator fun invoke(pack: Pack) {
-        val introMedia = pack.stages.firstOrNull{it.squareOne}?.audio
+        val introMedia = pack.getFirstStage()?.audio
         introMedia?.let {
             playerManager.play(introMedia)
         }

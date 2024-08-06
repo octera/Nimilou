@@ -1,6 +1,7 @@
 package info.octera.droidstorybox.data.pack_reader.json_story
 
 import android.net.Uri
+import android.util.Log
 import androidx.core.net.toUri
 import com.google.gson.GsonBuilder
 import info.octera.droidstorybox.data.mediaplayer.mediasource.ZipAssetDataSource
@@ -40,7 +41,7 @@ class PackWithJsonStoryReader {
                 version = story.version,
                 age = getAgeFromFilename(file.name),
                 uri = file.toUri(),
-                thumbsnail = thumbnail
+                thumbsnail = thumbnail!!
             )
         }
     }
@@ -68,12 +69,12 @@ class PackWithJsonStoryReader {
                 version = story.version,
                 age = getAgeFromFilename(file.name),
                 uri = file.toUri(),
-                thumbsnail = thumbnail
+                thumbsnail = thumbnail!!
             )
 
             return Pack(
                 metadata = metaData,
-                stages = story.stageNodes.map{convertToStage(file, it)},
+                stages = story.stageNodes.map{convertToStage(file, zip, it)},
                 actions = story.actionNodes.map(::convertToAction),
             )
         }
@@ -84,17 +85,22 @@ class PackWithJsonStoryReader {
         val storyReader = InputStreamReader(zip.getInputStream(storyEntry))
         return GsonBuilder().create().fromJson(storyReader, Story::class.java)
     }
-    private fun getFileAsByteArray(zip: ZipFile, fileName: String) : ByteArray {
-        val thumbnailEntry = zip.entries().asSequence().first { it.name == fileName }
-        return zip.getInputStream(thumbnailEntry).readBytes()
+    private fun getFileAsByteArray(zip: ZipFile, fileName: String) : ByteArray? {
+        try {
+            val fileEntry = zip.entries().asSequence().first { it.name == fileName }
+            return zip.getInputStream(fileEntry).readBytes()
+        } catch (e: Exception) {
+            Log.e("ZIPJSONPACK", "Error getting $fileName in ${zip.name}")
+            return null
+        }
     }
 
-    private fun convertToStage(file:File, storyStageNode: StoryStageNode): Stage {
+    private fun convertToStage(file:File, zip: ZipFile, storyStageNode: StoryStageNode): Stage {
         return Stage(
             uuid = storyStageNode.uuid,
             type = mapStageType(storyStageNode.type),
             name = storyStageNode.name,
-            image = storyStageNode.image,
+            image = storyStageNode.image?.let { getFileAsByteArray(zip, it) },
             audio = Uri.parse(
                 ZipAssetDataSource.URI_SCHEME +
                         "://" +file.toString() +

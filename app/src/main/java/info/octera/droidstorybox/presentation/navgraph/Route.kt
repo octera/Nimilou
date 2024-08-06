@@ -5,6 +5,8 @@ sealed class Route(val route: String) {
 
     data object HomeScreen : Route(route = "homeScreen")
 
+    data object ReadScreen : Route(route = "readScreen")
+
     data object SettingsScreen : Route(route = "settingsScreen")
 
     data object LocalPackScreen : Route(route = "localPackScreen")
@@ -12,4 +14,11 @@ sealed class Route(val route: String) {
     data object PackSourceScreen : Route(route = "packSourceScreen")
 
     data object RemotePackScreen : Route(route = "remotePackScreen")
+
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { arg -> append("/$arg") }
+        }
+    }
 }

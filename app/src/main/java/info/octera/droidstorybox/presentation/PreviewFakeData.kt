@@ -1,14 +1,31 @@
 package info.octera.droidstorybox.presentation
 
+import android.net.Uri
 import androidx.core.net.toUri
 import info.octera.droidstorybox.domain.model.pack.Pack
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.model.RemoteThumbs
+import info.octera.droidstorybox.domain.model.pack.ControlSettings
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
+import info.octera.droidstorybox.domain.model.pack.Stage
+import info.octera.droidstorybox.domain.model.pack.StageType
 import java.io.File
+import java.util.UUID
 
 object PreviewFakeData {
+    val stage = Stage(
+        uuid = UUID.randomUUID(),
+        type = StageType.STAGE,
+        name = "foo",
+        image = null,
+        audio = Uri.parse("foo"),
+        okTransition = null,
+        homeTransition = null,
+        controlSettings = ControlSettings(false,false,false,false,false),
+        squareOne = true
+
+    )
     val pack= Pack(
         metadata = PackMetadata(
             format = "foo",

@@ -48,18 +48,23 @@ import androidx.media3.exoplayer.ExoPlayer
 import coil.compose.rememberAsyncImagePainter
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.presentation.PreviewFakeData
+import info.octera.droidstorybox.ui.theme.Pink
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
-@Preview
+@Preview(
+    showSystemUi = true,
+    showBackground = true,
+)
 @Composable
 fun PreviewHomeScreeen() {
     HomeScreen(
         packs = PreviewFakeData.localPacks,
         onSettingsClicked = {},
-        onPackFocused = {}
+        onPackFocused = {},
+        onPackSelected = {}
     )
 }
 
@@ -68,7 +73,8 @@ fun PreviewHomeScreeen() {
 fun HomeScreen(
     packs: List<PackMetadata>,
     onSettingsClicked: () -> Unit,
-    onPackFocused: (PackMetadata) -> Unit
+    onPackFocused: (PackMetadata) -> Unit,
+    onPackSelected: (PackMetadata) -> Unit,
 ) {
     val pagerState = rememberPagerState { packs.count() }
     val coroutineScope = rememberCoroutineScope()
@@ -100,7 +106,6 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .background(Color(230, 164, 195))
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
@@ -176,7 +181,7 @@ fun HomeScreen(
                 }
                 IconButton(
                     modifier = Modifier.fillMaxWidth(0.5F),
-                    onClick = { /*TODO*/ },
+                    onClick = { onPackSelected(packs[pagerState.currentPage]) },
                 ) {
                     Icon(
                         Icons.Filled.PlayArrow,

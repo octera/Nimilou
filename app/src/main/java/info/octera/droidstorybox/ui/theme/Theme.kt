@@ -22,9 +22,9 @@ private val DarkColorScheme =
 private val LightColorScheme =
     lightColorScheme(
         primary = Blue,
-        background = Color.White,
+        background = Pink,
         error = LightRed,
-        surface = Color.White,
+        surface = Pink,
     )
 /* Other default colors to override
 background = Color(0xFFFFFBFE),
