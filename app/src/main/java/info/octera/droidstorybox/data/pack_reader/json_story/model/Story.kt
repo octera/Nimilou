@@ -1,5 +1,7 @@
 package info.octera.droidstorybox.data.pack_reader.json_story.model
 
+import com.google.gson.annotations.JsonAdapter
+import com.google.gson.annotations.SerializedName
 import java.util.UUID
 
 data class Story(
@@ -14,6 +16,7 @@ data class Story(
 
 data class StoryStageNode(
     val uuid: UUID,
+    //@JsonAdapter(EnumDeserializer::class)
     val type: StoryStageType,
     val name: String,
     val position: StoryPoint,
@@ -33,12 +36,20 @@ data class StoryActionNode(
 )
 
 enum class StoryStageType {
-    STAGE
+    @SerializedName("stage") STAGE,
+    @SerializedName("story") STORY,
+    @SerializedName("cover") COVER,
+    @SerializedName("action") ACTION,
+    @SerializedName("menu.questionstage") MENU_QUESTIONSTAGE,
+    @SerializedName("menu.questionaction") MENU_QUESTIONACTION,
+    @SerializedName("menu.optionstage") MENU_OPTIONSTAGE,
+    @SerializedName("menu.optionsaction") MENU_OPTIONSACTION,
+    @SerializedName("story.storyaction") STORY_ACTION
 }
 
 data class StoryPoint(
-    val x:Int,
-    val y:Int
+    val x:Float,
+    val y:Float
 )
 
 data class StoryTransition(

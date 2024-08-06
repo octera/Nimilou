@@ -1,7 +1,9 @@
 package info.octera.droidstorybox.data.pack_reader.json_story
 
+import android.net.Uri
 import androidx.core.net.toUri
 import com.google.gson.GsonBuilder
+import info.octera.droidstorybox.data.mediaplayer.mediasource.ZipAssetDataSource
 import info.octera.droidstorybox.data.pack_reader.json_story.model.Story
 import info.octera.droidstorybox.data.pack_reader.json_story.model.StoryActionNode
 import info.octera.droidstorybox.data.pack_reader.json_story.model.StoryControlSettings
@@ -71,7 +73,7 @@ class PackWithJsonStoryReader {
 
             return Pack(
                 metadata = metaData,
-                stages = story.stageNodes.map(::convertToStage),
+                stages = story.stageNodes.map{convertToStage(file, it)},
                 actions = story.actionNodes.map(::convertToAction),
             )
         }
@@ -87,13 +89,16 @@ class PackWithJsonStoryReader {
         return zip.getInputStream(thumbnailEntry).readBytes()
     }
 
-    private fun convertToStage(storyStageNode: StoryStageNode): Stage {
+    private fun convertToStage(file:File, storyStageNode: StoryStageNode): Stage {
         return Stage(
             uuid = storyStageNode.uuid,
             type = mapStageType(storyStageNode.type),
             name = storyStageNode.name,
             image = storyStageNode.image,
-            audio = storyStageNode.audio,
+            audio = Uri.parse(
+                ZipAssetDataSource.URI_SCHEME +
+                        "://" +file.toString() +
+                        "#assets/" + storyStageNode.audio),
             okTransition = mapTransition(storyStageNode.okTransition),
             homeTransition = mapTransition(storyStageNode.homeTransition),
             controlSettings = mapControlSettings(storyStageNode.controlSettings),
@@ -123,6 +128,14 @@ class PackWithJsonStoryReader {
     private fun mapStageType(type: StoryStageType): StageType {
         return when (type) {
             StoryStageType.STAGE -> StageType.STAGE
+            StoryStageType.STORY -> StageType.STORY
+            StoryStageType.COVER -> StageType.COVER
+            StoryStageType.MENU_QUESTIONSTAGE -> StageType.MENU_QUESTIONSTAGE
+            StoryStageType.MENU_OPTIONSTAGE -> StageType.MENU_OPTIONSTAGE
+            StoryStageType.ACTION -> StageType.ACTION
+            StoryStageType.MENU_QUESTIONACTION -> StageType.MENU_QUESTIONACTION
+            StoryStageType.MENU_OPTIONSACTION -> StageType.MENU_OPTIONSACTION
+            StoryStageType.STORY_ACTION -> StageType.STORY_ACTION
         }
     }
 

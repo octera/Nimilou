@@ -1,6 +1,8 @@
 package info.octera.droidstorybox.di
 
 import android.app.Application
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -9,6 +11,8 @@ import dagger.hilt.components.SingletonComponent
 import info.octera.droidstorybox.data.local.PackSourcesDao
 import info.octera.droidstorybox.data.local.PacksDatabase
 import info.octera.droidstorybox.data.manager.LocalUserManagerImpl
+import info.octera.droidstorybox.data.mediaplayer.ExoMediaPlayerManager
+import info.octera.droidstorybox.data.mediaplayer.MediaPlayerManager
 import info.octera.droidstorybox.data.remote.BasicHttpSource
 import info.octera.droidstorybox.data.repository.PackRepositoryImpl
 import info.octera.droidstorybox.data.repository.PackSourcesRepositoryImpl
@@ -24,6 +28,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+    @Provides
+    @Singleton
+    fun provideMediaPlayerManager(application: Application): MediaPlayerManager {
+        val player = ExoPlayer
+            .Builder(application)
+            .build()
+        return ExoMediaPlayerManager(player)
+    }
+
     @Provides
     @Singleton
     fun provideLocalUserManager(application: Application): LocalUserManager =
