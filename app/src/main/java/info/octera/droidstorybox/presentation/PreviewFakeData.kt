@@ -1,6 +1,7 @@
 package info.octera.droidstorybox.presentation
 
 import androidx.core.net.toUri
+import info.octera.droidstorybox.domain.model.pack.Pack
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.domain.model.RemoteThumbs
@@ -8,6 +9,20 @@ import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import java.io.File
 
 object PreviewFakeData {
+    val pack= Pack(
+        metadata = PackMetadata(
+            format = "foo",
+            title = "Pack 1",
+            version = 4,
+            description = "Foo bar foo bar",
+            age = 4,
+            thumbsnail = ByteArray(0),
+            nightModeAvailable = false,
+            uri = File("").toUri(),
+        ),
+        actions = emptyList(),
+        stages = emptyList()
+    )
     val packSources = listOf(
         PackSource(name = "Source1", url = "https://foo"),
         PackSource(name = "Source1", url = "https://foo"),

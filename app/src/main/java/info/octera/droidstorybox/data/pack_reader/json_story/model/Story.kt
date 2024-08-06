@@ -39,8 +39,12 @@ enum class StoryStageType {
     @SerializedName("stage") STAGE,
     @SerializedName("story") STORY,
     @SerializedName("cover") COVER,
+    @SerializedName("action") ACTION,
     @SerializedName("menu.questionstage") MENU_QUESTIONSTAGE,
-    @SerializedName("menu.optionstage") MENU_OPTIONSTAGE
+    @SerializedName("menu.questionaction") MENU_QUESTIONACTION,
+    @SerializedName("menu.optionstage") MENU_OPTIONSTAGE,
+    @SerializedName("menu.optionsaction") MENU_OPTIONSACTION,
+    @SerializedName("story.storyaction") STORY_ACTION
 }
 
 data class StoryPoint(

@@ -16,13 +16,16 @@ interface MediaPlayerManager {
 @OptIn(UnstableApi::class)
 class ExoMediaPlayerManager(private val player: ExoPlayer) : MediaPlayerManager {
     override fun play(introMedia: Uri) {
+        val dsf = MyDatasourceFactory(introMedia)
         val mediaSource = ProgressiveMediaSource
-            .Factory(MyDatasourceFactory(introMedia))
+            .Factory(dsf)
             .createMediaSource(MediaItem.fromUri(introMedia))
 
         player.stop()
         player.clearMediaItems()
         player.addMediaSource(mediaSource)
+        player.prepare()
+        player.play()
     }
 
 }

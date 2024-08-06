@@ -3,6 +3,7 @@ package info.octera.droidstorybox.data.pack_reader.json_story
 import android.net.Uri
 import androidx.core.net.toUri
 import com.google.gson.GsonBuilder
+import info.octera.droidstorybox.data.mediaplayer.mediasource.ZipAssetDataSource
 import info.octera.droidstorybox.data.pack_reader.json_story.model.Story
 import info.octera.droidstorybox.data.pack_reader.json_story.model.StoryActionNode
 import info.octera.droidstorybox.data.pack_reader.json_story.model.StoryControlSettings
@@ -94,7 +95,10 @@ class PackWithJsonStoryReader {
             type = mapStageType(storyStageNode.type),
             name = storyStageNode.name,
             image = storyStageNode.image,
-            audio = Uri.parse(file.toString() + "##" + storyStageNode.audio),
+            audio = Uri.parse(
+                ZipAssetDataSource.URI_SCHEME +
+                        "://" +file.toString() +
+                        "#assets/" + storyStageNode.audio),
             okTransition = mapTransition(storyStageNode.okTransition),
             homeTransition = mapTransition(storyStageNode.homeTransition),
             controlSettings = mapControlSettings(storyStageNode.controlSettings),
@@ -126,8 +130,12 @@ class PackWithJsonStoryReader {
             StoryStageType.STAGE -> StageType.STAGE
             StoryStageType.STORY -> StageType.STORY
             StoryStageType.COVER -> StageType.COVER
-            StoryStageType.MENU_QUESTIONSTAGE -> TODO()
-            StoryStageType.MENU_OPTIONSTAGE -> TODO()
+            StoryStageType.MENU_QUESTIONSTAGE -> StageType.MENU_QUESTIONSTAGE
+            StoryStageType.MENU_OPTIONSTAGE -> StageType.MENU_OPTIONSTAGE
+            StoryStageType.ACTION -> StageType.ACTION
+            StoryStageType.MENU_QUESTIONACTION -> StageType.MENU_QUESTIONACTION
+            StoryStageType.MENU_OPTIONSACTION -> StageType.MENU_OPTIONSACTION
+            StoryStageType.STORY_ACTION -> StageType.STORY_ACTION
         }
     }
 

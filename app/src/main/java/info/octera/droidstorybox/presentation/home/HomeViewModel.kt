@@ -25,5 +25,8 @@ class HomeViewModel @Inject constructor(
 
     fun setPackFocused(packMetadata: PackMetadata) {
         state.value = state.value.copy(packFocused = packUseCases.getPack(packMetadata.uri))
+        state.value.packFocused?.let {
+            packUseCases.playIntro(it)
+        }
     }
 }
