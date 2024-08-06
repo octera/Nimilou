@@ -65,7 +65,7 @@ class ZipAssetDataSource() : DataSource{
 
     override fun read(buffer: ByteArray, offset: Int, readLength: Int): Int {
         if (this.zis == null) throw IOException("Attemp to read a non openend stream")
-        Log.i("READ", "ReadLength :" + readLength)
+
         val zis = this.zis!!
         val bytesRemaining = zis.available()
 
