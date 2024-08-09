@@ -34,7 +34,7 @@ object AppModule {
         val player = ExoPlayer
             .Builder(application)
             .build()
-        return ExoMediaPlayerManager(player)
+        return ExoMediaPlayerManager(application, player)
     }
 
     @Provides

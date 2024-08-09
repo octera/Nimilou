@@ -1,9 +1,9 @@
 package info.octera.droidstorybox.domain.model.pack
 
 data class ControlSettings(
-    val wheel: Boolean,
-    val ok: Boolean,
-    val home: Boolean,
-    val pause: Boolean,
-    val autoplay: Boolean,
+    val wheel: Boolean = false,
+    val ok: Boolean = false,
+    val home: Boolean = false,
+    val pause: Boolean = false,
+    val autoplay: Boolean = false,
 )
