@@ -27,10 +27,10 @@ class HomeViewModel @Inject constructor(
 
     fun setPackFocused(packMetadata: PackMetadata) {
         viewModelScope.launch {
-            state.value = state.value.copy(packFocused = packUseCases.getPack(packMetadata.uri))
-            state.value.packFocused?.let {
-                packUseCases.playIntro(it)
-            }
+            val pack = packUseCases.getPack(packMetadata.uri)
+            val firstStage = pack.getFirstStage()
+            state.value = state.value.copy(packFocused = pack)
+            firstStage?.audio?.let { packUseCases.playMedia(it) }
         }
     }
 }

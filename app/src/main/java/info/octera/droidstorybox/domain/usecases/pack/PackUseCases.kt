@@ -4,5 +4,7 @@ import javax.inject.Inject
 
 data class PackUseCases @Inject constructor(
     val getPack: GetPack,
-    val playIntro: PlayIntro
+    val playMedia: PlayMedia,
+    val togglePause: TogglePause,
+    val getPlayerState: GetPlayerState
 )

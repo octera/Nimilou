@@ -53,7 +53,7 @@ data class StoryPoint(
 )
 
 data class StoryTransition(
-    val actionNode: String,
+    val actionNode: UUID,
     val optionIndex: Int
 )
 

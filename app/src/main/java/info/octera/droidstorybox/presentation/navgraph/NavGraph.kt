@@ -1,6 +1,5 @@
 package info.octera.droidstorybox.presentation.navgraph
 
-import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -17,7 +16,6 @@ import info.octera.droidstorybox.presentation.onboarding.components.OnBoardingSc
 import info.octera.droidstorybox.presentation.read_pack.ReadPackScreen
 import info.octera.droidstorybox.presentation.read_pack.ReadPackViewModel
 import info.octera.droidstorybox.presentation.settings_navigation.SettingsNavigator
-import java.net.URLDecoder
 import java.net.URLEncoder
 
 @Composable
@@ -52,13 +50,15 @@ fun NavGraph(startDestination: String) {
             )
         ) {
             val viewModel: ReadPackViewModel = hiltViewModel()
-            val uri = Uri.parse(URLDecoder.decode(it.arguments!!.getString("packUri")))
-            viewModel.setPackUri(uri)
             val state = viewModel.state.value
             ReadPackScreen(
                 pack = state.pack,
-                stage = state.currendStage,
-                onBackPressed = {navController.popBackStack()}
+                currentStages = state.currendStages,
+                playerInfo = state.playerInfo,
+                onBackPressed = {navController.popBackStack()},
+                onPauseClick = {viewModel.pause()},
+                onOkClick = {viewModel.ok()},
+                setSelectedStage = {viewModel.setSelectedStage(it)}
             )
         }
     }

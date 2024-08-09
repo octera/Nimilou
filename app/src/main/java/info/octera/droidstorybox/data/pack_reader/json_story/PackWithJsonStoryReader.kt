@@ -100,7 +100,7 @@ class PackWithJsonStoryReader {
             uuid = storyStageNode.uuid,
             type = mapStageType(storyStageNode.type),
             name = storyStageNode.name,
-            image = storyStageNode.image?.let { getFileAsByteArray(zip, it) },
+            image = storyStageNode.image?.let { getFileAsByteArray(zip, "assets/$it") },
             audio = Uri.parse(
                 ZipAssetDataSource.URI_SCHEME +
                         "://" +file.toString() +
