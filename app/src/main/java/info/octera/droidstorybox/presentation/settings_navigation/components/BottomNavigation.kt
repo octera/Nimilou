@@ -67,19 +67,3 @@ data class BottomNavigationItem(
     @DrawableRes val icon: Int,
     val text: String,
 )
-
-@Preview
-@Preview(uiMode = UI_MODE_NIGHT_YES)
-@Composable
-fun NewsBottomNavigationPreview() {
-    NewsAppTheme(dynamicColor = false) {
-        BottomNavigation(items = listOf(
-            BottomNavigationItem(icon = R.drawable.baseline_home_24, text = "Home"),
-            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Search"),
-            BottomNavigationItem(
-                icon = R.drawable.baseline_bookmark_border_24,
-                text = "Bookmark"
-            ),
-        ), selectedItem = 0, onItemClick = {})
-    }
-}
