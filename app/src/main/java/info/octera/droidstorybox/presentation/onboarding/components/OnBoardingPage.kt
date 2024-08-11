@@ -14,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.R
 import info.octera.droidstorybox.presentation.Dimens.MediumPadding1
 import info.octera.droidstorybox.presentation.Dimens.MediumPadding2
@@ -31,20 +33,21 @@ fun OnBoardingPage(
             contentDescription = "",
             modifier =
             modifier
+                .padding(24.dp)
                 .fillMaxWidth()
                 .fillMaxHeight(0.6f),
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.Fit,
         )
         Spacer(modifier = modifier.height(MediumPadding1))
         Text(
             modifier = modifier.padding(horizontal = MediumPadding2),
-            text = page.title,
+            text = stringResource(page.title),
             style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
             color = colorResource(id = R.color.display_small),
         )
         Text(
             modifier = modifier.padding(horizontal = MediumPadding2),
-            text = page.description,
+            text = stringResource(page.description),
             style = MaterialTheme.typography.bodyMedium,
             color = colorResource(id = R.color.text_medium),
         )

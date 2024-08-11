@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nimilou</string>
+    <string name="onboarding_page1_title">Bienvenue sur Nimilou</string>
+    <string name="onboarding_page1_desc">Bienvenue sur Nimilou. Cette application vous permet de lire des histoires audio. Elle accepte les format d\'histoire interactifs du type de Telmi, qui permet de naviguer dans les histoire avec simplicité.</string>
+    <string name="onboarding_page2_title">Ajout des packs d\'histoire</string>
+    <string name="onboarding_page2_desc">Pour utiliser l\'application vous devez vous rapprocher d\'une communauté qui vous permettra de trouver des packs d\'histoire a ajouter a l\'application. Les listing de packs au format Telmi peuvent être ajouté depuis la page de configuration dans l\'onglet \"Sources de Packs\"</string>
+    <string name="onboarding_page3_title">Ajout des histoires</string>
+    <string name="onboarding_page3_desc">Ensuite, vous pourrez télécharger des packs puis les ajouter dans l\'application depuis le bouton \"+\" depuis l\'onglet Pack. Les packs doivent être au format ZIP</string>
+</resources>
