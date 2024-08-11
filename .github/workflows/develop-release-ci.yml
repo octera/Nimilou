@@ -50,3 +50,10 @@ jobs:
       # Step 3: Check the code with Android linter
       - name: Run Android Linter
         run: ./gradlew lintDebug
+
+      - name: Install bundle
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Attempt to test and build app throught fastlane
+        run: bundle exec fastlane test

@@ -1,0 +1,11 @@
+Plongez dans l'univers magique de Nimilou, l'application de lecture d'histoires interactive pour enfants ! Explorez une vaste bibliothèque d'histoires captivantes, créées par des communautés de passionnés. Chaque histoire est un voyage unique où vos enfants peuvent interagir, apprendre et s'amuser.
+
+Fonctionnalités principales :
+
+    Histoires interactives : Découvrez des récits captivants avec des animations, des choix interactifs, et plus encore !
+    Communauté créative : Accédez à une collection grandissante d'histoires créées et partagées par des utilisateurs du monde entier.
+    Gratuit et Open Source : Nimilou est une application gratuite, sans publicité, et son code source est disponible sur GitHub pour les contributeurs.
+    Liste de lecture personnalisée : Créez et gérez vos propres listes d'histoires préférées, et téléchargez-les pour une lecture hors ligne.
+    Facile à utiliser : Interface conviviale et adaptée aux enfants, conçue pour rendre la lecture accessible et amusante.
+
+Téléchargez l'application, rzejoignez une communauté aujourd'hui et transformez chaque moment de lecture en une aventure inoubliable avec Nimilou !
