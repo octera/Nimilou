@@ -7,6 +7,8 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 ktlint {
@@ -117,5 +119,10 @@ dependencies {
     // media player
     implementation (libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.session)
+
+    //firebase crashlitics
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.google.firebase.crashlytics)
 
 }
