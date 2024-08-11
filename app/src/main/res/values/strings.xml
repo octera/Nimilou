@@ -3,7 +3,10 @@
     <string name="onboarding_page1_title">Welcome to Nimilou!</string>
     <string name="onboarding_page1_desc">Welcome to Nimilou. This app allows you to listen to audio stories. It supports interactive story formats like Telmi, which lets you navigate through the stories with ease.</string>
     <string name="onboarding_page2_title">Add story Pack</string>
-    <string name="onboarding_page2_desc">To use the app, you need to connect with a community that will help you find story packs to add to the app. Telmi-format pack listings can be added from the configuration page in the "Pack Sources" tab.</string>
+    <string name="onboarding_page2_desc">To use the app, you need to connect with a community that will help you find story packs to add to the app. Telmi-format pack listings can be added from the configuration page in the "Pack Sources" tab. Some links to communnnity:</string>
+    <string-array name="onboarding_page2_links">
+        <item>https://monurl.ca/lunii.creations</item>
+    </string-array>
     <string name="onboarding_page3_title">Add story</string>
     <string name="onboarding_page3_desc">After that, you can download packs and add them to the app using the "+" button in the Pack tab. The packs must be in ZIP format.</string>
 </resources>
