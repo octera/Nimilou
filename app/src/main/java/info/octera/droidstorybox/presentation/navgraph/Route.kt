@@ -15,6 +15,8 @@ sealed class Route(val route: String) {
 
     data object RemotePackScreen : Route(route = "remotePackScreen")
 
+    data object InfoScreen : Route(route = "infoScreen")
+
     fun withArgs(vararg args: String): String {
         return buildString {
             append(route)

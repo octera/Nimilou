@@ -1,6 +1,7 @@
 package info.octera.droidstorybox.presentation.settings_navigation
 
 import android.app.Activity
+import android.health.connect.datatypes.AppInfo
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import info.octera.droidstorybox.presentation.remote_pack.RemotePackScreen
 import info.octera.droidstorybox.presentation.remote_pack.RemotePackViewModel
 import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigation
 import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigationItem
+import info.octera.droidstorybox.settings_appinfo.AppInfoScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,10 +47,8 @@ fun SettingsNavigator() {
         listOf(
             BottomNavigationItem(icon = R.drawable.baseline_local_library_24, text = "Packs"),
             BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Remote Packs"),
-            BottomNavigationItem(
-                icon = R.drawable.baseline_cloud_download_24,
-                text = "Pack sources"
-            ),
+            BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = "Pack sources"),
+            BottomNavigationItem(icon = R.drawable.baseline_info_24, text = "Infos"),
         )
     }
 
@@ -61,6 +61,7 @@ fun SettingsNavigator() {
         Route.LocalPackScreen.route -> 0
         Route.RemotePackScreen.route -> 1
         Route.PackSourceScreen.route -> 2
+        Route.InfoScreen.route -> 3
         else -> 0
     }
 
@@ -112,6 +113,10 @@ fun SettingsNavigator() {
                             navController = navController,
                             route = Route.PackSourceScreen.route
                         )
+                        3 -> navigateToTab(
+                            navController = navController,
+                            route = Route.InfoScreen.route
+                        )
                     }
                 },
             )
@@ -150,6 +155,9 @@ fun SettingsNavigator() {
                     addPackSource = viewModel::addPackSource,
                     deletePackSource = viewModel::deletePackSource
                 )
+            }
+            composable(route = Route.InfoScreen.route) {
+                AppInfoScreen()
             }
         }
     }

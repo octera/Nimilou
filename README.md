@@ -2,6 +2,10 @@
 
 This is an App built using Kotlin and Jetpack components following the Clean Code architecture. It utilizes the Paging Library for efficient data loading, Dagger Hilt for dependency injection, and Retrofit to fetch datas.
 
+## Support me
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/octera)
+
+
 ## Features
 
 - **Clean Code Architecture:** Ensures separation of concerns and makes the codebase more maintainable.
