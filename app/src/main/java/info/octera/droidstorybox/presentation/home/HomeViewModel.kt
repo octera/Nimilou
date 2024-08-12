@@ -7,6 +7,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.domain.usecases.pack.PackUseCases
 import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +24,9 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getPacks() {
-        state.value = state.value.copy(packs = packsUseCases.getPacks())
+        packsUseCases.getPacks().onEach {
+            state.value = state.value.copy(packs = it)
+        }.launchIn(viewModelScope)
     }
 
     fun setPackFocused(packMetadata: PackMetadata) {
