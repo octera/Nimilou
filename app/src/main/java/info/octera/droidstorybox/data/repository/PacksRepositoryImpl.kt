@@ -1,14 +1,17 @@
 package info.octera.droidstorybox.data.repository
 
 import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.provider.OpenableColumns
 import android.util.Log
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import info.octera.droidstorybox.data.file.FileSource
+import info.octera.droidstorybox.data.remote.BasicHttpSource
 import info.octera.droidstorybox.domain.model.ProgressState
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.domain.repository.PacksRepository
@@ -25,6 +28,7 @@ import javax.inject.Inject
 
 class PacksRepositoryImpl @Inject constructor(
     @ApplicationContext private val appContext: Context,
+    private val basicHttpSource: BasicHttpSource,
     private val fileSource: FileSource
 ) : PacksRepository {
     private val location = "packs"
@@ -49,6 +53,36 @@ class PacksRepositoryImpl @Inject constructor(
 
     override suspend fun deletePack(packMetadata: PackMetadata) {
         packMetadata.uri.toFile().delete()
+    }
+
+    override fun downloadPackFile(downloadUrl: String, fileName: String): Flow<ProgressState> {
+        return flow {
+            emit(ProgressState.Progressing(0))
+            try {
+                val response = basicHttpSource.downloadFile(downloadUrl)
+                val fileOutputStream = fileSource.getOutputStreamToFile(location, fileName)
+                val body = response.body()!!
+
+                body.byteStream().use { inputStream->
+                    fileOutputStream.use { outputStream->
+                        val totalBytes = body.contentLength()
+                        val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+                        var progressBytes = 0L
+                        var bytes = inputStream.read(buffer)
+                        while (bytes >= 0) {
+                            outputStream.write(buffer, 0, bytes)
+                            progressBytes += bytes
+                            bytes = inputStream.read(buffer)
+                            emit(ProgressState.Progressing(((progressBytes * 100.0) / totalBytes).toInt()))
+                        }
+                        Log.i("File", "File written successfully : $totalBytes written")
+                    }
+                }
+                emit(ProgressState.Finished)
+            } catch (e: Exception) {
+                emit(ProgressState.Failed(e))
+            }
+        }.flowOn(Dispatchers.IO).distinctUntilChanged()
     }
 
     private suspend fun copyStreamWithProgress(

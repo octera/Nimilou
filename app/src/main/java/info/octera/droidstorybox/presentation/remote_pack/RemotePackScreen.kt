@@ -42,6 +42,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.RemotePack
 import info.octera.droidstorybox.presentation.PreviewFakeData
+import info.octera.droidstorybox.presentation.common.DownloaderWebView
 import info.octera.droidstorybox.presentation.common.MyDropDownMenuItem
 import info.octera.droidstorybox.presentation.common.MyExposedDropdownMenu
 import info.octera.droidstorybox.presentation.common.RemotePackList
@@ -57,7 +58,7 @@ fun PreviewRemotePackScreen() {
             downloadProgress = 50
         ),
         fetchPacksFromPackSource = {},
-        fetchPack = {}
+        fetchPack = {_,_ ->}
     )
 }
 
@@ -70,7 +71,7 @@ fun PreviewRemotePackScreenEmptySource() {
             remotePack = listOf()
         ),
         fetchPacksFromPackSource = {},
-        fetchPack = {}
+        fetchPack = { _, _ -> }
     )
 }
 
@@ -79,7 +80,7 @@ fun RemotePackScreen(
     modifier: Modifier = Modifier,
     state: RemotePackState,
     fetchPacksFromPackSource: (PackSource) -> Unit,
-    fetchPack: (RemotePack) -> Unit
+    fetchPack: (String, String) -> Unit
 ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     var urlBottomSheet by remember { mutableStateOf(null as String?) }
@@ -171,45 +172,13 @@ fun RemotePackScreen(
         }
     }
     if (showBottomSheet && urlBottomSheet != null) {
-        ModalWebView(
+        DownloaderWebView(
             url = urlBottomSheet!!,
             onDismissRequest = { showBottomSheet = false },
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ModalWebView(
-    onDismissRequest: () -> Unit,
-    url: String
-) {
-    val context = LocalContext.current
-
-    ModalBottomSheet(onDismissRequest = { onDismissRequest() }) {
-        // Adding a WebView inside AndroidView
-        // with layout as full screen
-        AndroidView(factory = {
-            WebView(it).apply {
-                this.layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT
-                )
-                this.setDownloadListener { url, userAgent, contentDisposition, mimeType, lenght ->
-                    val filename = URLUtil.guessFileName(url, contentDisposition, mimeType)
-                    val request = DownloadManager.Request(Uri.parse(url))
-                    request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) //Notify client once download is completed!
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
-                    val dm = getSystemService(context, DownloadManager::class.java) as DownloadManager
-                    dm.enqueue(request)
-                    onDismissRequest()
-                }
-
-                this.settings.javaScriptEnabled=true
-                this.webViewClient = WebViewClient()
+            onDownloadUrlResolved = { downloadUrl, filename ->
+                fetchPack(downloadUrl, filename)
+                showBottomSheet = false
             }
-        }, update = {
-            it.loadUrl(url)
-        })
+        )
     }
 }

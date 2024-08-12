@@ -6,5 +6,5 @@ data class PackUseCases @Inject constructor(
     val getPack: GetPack,
     val playMedia: PlayMedia,
     val togglePause: TogglePause,
-    val getPlayerState: GetPlayerState
+    val getPlayerState: GetPlayerState,
 )
