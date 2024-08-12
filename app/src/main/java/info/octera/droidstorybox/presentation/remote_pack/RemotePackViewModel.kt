@@ -1,16 +1,25 @@
 package info.octera.droidstorybox.presentation.remote_pack
 
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Environment
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import info.octera.droidstorybox.domain.model.PackSource
+import info.octera.droidstorybox.domain.model.ProgressState
 import info.octera.droidstorybox.domain.model.RemotePack
+import info.octera.droidstorybox.domain.usecases.pack.PackUseCases
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
+import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -20,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RemotePackViewModel @Inject constructor(
     private val packSourcesUseCases: PackSourcesUseCases,
+    private val packsUseCases: PacksUseCases,
     @ApplicationContext private val appContext: Context
 ) : ViewModel() {
 
@@ -42,9 +52,31 @@ class RemotePackViewModel @Inject constructor(
         }
     }
 
-    fun fetchPack(remotePack: RemotePack) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(remotePack.download))
-        browserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        appContext.startActivity(browserIntent)
+    fun fetchPack(downloadUrl: String, fileName: String) {
+        viewModelScope.launch {
+            packsUseCases.addPack(downloadUrl, fileName).collect { downloadState->
+                when (downloadState) {
+                    is ProgressState.Progressing -> {
+                        Log.d("myTag", "progress=${downloadState.progress}")
+                        state.value = state.value.copy(
+                            downloading = true,
+                            downloadProgress = downloadState.progress
+                        )
+                    }
+                    is ProgressState.Failed -> {
+                        state.value = state.value.copy(
+                            downloading = false,
+                        )
+                        Toast.makeText(appContext, "Download Failed", Toast.LENGTH_LONG)
+                    }
+                    is ProgressState.Finished -> {
+                        state.value = state.value.copy(
+                            downloading = false,
+                        )
+                        Toast.makeText(appContext, "Download Success", Toast.LENGTH_LONG)
+                    }
+                }
+            }
+        }
     }
 }
