@@ -2,6 +2,7 @@ package info.octera.droidstorybox.presentation.local_packs
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import info.octera.droidstorybox.domain.model.ProgressState
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +29,9 @@ class LocalPacksViewModel @Inject constructor(
     }
 
     private fun getPacks() {
-        state.value = state.value.copy(packs = packsUseCases.getPacks())
+        packsUseCases.getPacks().onEach {
+            state.value = state.value.copy(packs = it)
+        }.launchIn(viewModelScope)
     }
 
     fun addPack(uri: Uri) {
@@ -50,7 +55,6 @@ class LocalPacksViewModel @Inject constructor(
     fun deletePack(packMetadata: PackMetadata) {
         viewModelScope.launch {
             packsUseCases.deletePack(packMetadata)
-            getPacks()
         }
     }
 

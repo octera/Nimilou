@@ -32,7 +32,6 @@ class ReadPackViewModel @Inject constructor(
         state.value = state.value.copy(pack = pack, currendStages = listOfNotNull(firstStage))
         val flow = packUseCases.getPlayerState()
         flow.onEach {
-            Log.e("FLOW", ""+it)
             state.value = state.value.copy(playerInfo = PlayerInfo(
                 playing = it.playbackState == PlaybackState.PLAYING,
                 duration = it.duration,
