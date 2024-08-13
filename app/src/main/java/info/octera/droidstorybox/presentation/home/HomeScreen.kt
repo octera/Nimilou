@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -161,9 +162,13 @@ fun HomeScreen(
                 }
 
             }
-            Row(modifier = Modifier.padding(0.dp, 20.dp)) {
-                IconButton(
-                    modifier = Modifier.fillMaxWidth(0.33F),
+            Row(modifier = Modifier
+                .padding(8.dp, 64.dp)
+                .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround) {
+                FilledIconButton(
+                    modifier = Modifier.size(64.dp),
+                    enabled = pagerState.canScrollBackward,
                     onClick = {
                         coroutineScope.launch {
                             if (pagerState.canScrollBackward) {
@@ -176,21 +181,22 @@ fun HomeScreen(
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         "",
-                        modifier = Modifier.size(128.dp)
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
-                IconButton(
-                    modifier = Modifier.fillMaxWidth(0.5F),
+                FilledIconButton(
+                    modifier = Modifier.size(64.dp),
                     onClick = { onPackSelected(packs[pagerState.currentPage]) },
                 ) {
                     Icon(
                         Icons.Filled.PlayArrow,
                         "",
-                        modifier = Modifier.size(128.dp)
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
-                IconButton(
-                    modifier = Modifier.fillMaxWidth(1.0F),
+                FilledIconButton(
+                    modifier = Modifier.size(64.dp),
+                    enabled = pagerState.canScrollForward,
                     onClick = {
                         coroutineScope.launch {
                             if (pagerState.canScrollForward) {
@@ -203,7 +209,7 @@ fun HomeScreen(
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowForward,
                         "",
-                        modifier = Modifier.size(128.dp)
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
             }
