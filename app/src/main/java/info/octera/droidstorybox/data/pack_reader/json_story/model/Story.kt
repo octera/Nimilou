@@ -21,7 +21,7 @@ data class StoryStageNode(
     val name: String,
     val position: StoryPoint,
     val image: String?,
-    val audio: String,
+    val audio: String?,
     val okTransition: StoryTransition?,
     val homeTransition: StoryTransition?,
     val controlSettings: StoryControlSettings,

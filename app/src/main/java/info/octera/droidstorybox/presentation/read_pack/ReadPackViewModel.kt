@@ -49,8 +49,12 @@ class ReadPackViewModel @Inject constructor(
 
     fun runStage() {
         currentStageSelected()?.let { stage ->
-            Log.e("FOO", stage.name)
-            packUseCases.playMedia(stage.audio)
+            if (stage.audio == null) {
+                ok()
+            } else {
+                packUseCases.playMedia(stage.audio)
+            }
+
         }
     }
 

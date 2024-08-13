@@ -101,10 +101,10 @@ class PackWithJsonStoryReader {
             type = mapStageType(storyStageNode.type),
             name = storyStageNode.name,
             image = storyStageNode.image?.let { getFileAsByteArray(zip, "assets/$it") },
-            audio = Uri.parse(
+            audio = storyStageNode.audio?.let { Uri.parse(
                 ZipAssetDataSource.URI_SCHEME +
                         "://" +file.toString() +
-                        "#assets/" + storyStageNode.audio),
+                        "#assets/" + it)},
             okTransition = mapTransition(storyStageNode.okTransition),
             homeTransition = mapTransition(storyStageNode.homeTransition),
             controlSettings = mapControlSettings(storyStageNode.controlSettings),

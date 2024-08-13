@@ -8,7 +8,7 @@ data class Stage(
     val type: StageType,
     val name: String,
     val image: ByteArray?,
-    val audio: Uri,
+    val audio: Uri?,
     val okTransition: Transition?,
     val homeTransition: Transition?,
     val controlSettings: ControlSettings,
