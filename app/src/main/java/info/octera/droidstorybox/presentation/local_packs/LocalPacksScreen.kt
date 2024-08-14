@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.R
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.presentation.PreviewFakeData
+import info.octera.droidstorybox.presentation.common.BigWarning
 import info.octera.droidstorybox.presentation.common.LocalPackList
 
 @Preview
@@ -81,25 +82,7 @@ fun LocalPacksScreen(
                 .padding(paddingValues),
         ) {
             if (state.packs.isEmpty()) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        Icons.Filled.Warning,
-                        "Warn",
-                        modifier = Modifier
-                            .size(128.dp)
-                            .padding(20.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.please_add_pack),
-                        style = MaterialTheme.typography.headlineLarge.copy(),
-                        textAlign = TextAlign.Center
-
-                    )
-                }
+                BigWarning(warnMessage = stringResource(id = R.string.please_add_pack))
             } else {
                 LocalPackList(
                     packsMetadata = state.packs,

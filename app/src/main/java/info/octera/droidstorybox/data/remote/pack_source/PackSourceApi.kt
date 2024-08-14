@@ -18,8 +18,12 @@ class PackSourceApi @Inject constructor(
 
     suspend fun fetchPacks(url: String): List<RemotePack> {
         return withContext(Dispatchers.IO) {
-            val response = basicHttpSource.get(url)
-            parseResult(response.body()!!.string())
+            try {
+                val response = basicHttpSource.get(url)
+                parseResult(response.body()!!.string())
+            } catch (e: Exception) {
+                emptyList()
+            }
         }
     }
 

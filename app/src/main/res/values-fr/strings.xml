@@ -13,4 +13,5 @@
     <string name="please_add_pack_in_settings_menu">Merci d\'ajouter des packs dans les paramètres</string>
     <string name="settings">Paramètres</string>
     <string name="please_add_pack">Merci d\'ajouter des packs</string>
+    <string name="no_pack_in_source_or_bad_source">Pas de packs dans la source ou mauvaise source</string>
 </resources>
