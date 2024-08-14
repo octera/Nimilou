@@ -8,10 +8,35 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.22-1.0.17" apply false
     id("com.google.gms.google-services") version "4.4.2" apply false
     id("com.google.firebase.crashlytics") version "3.0.2" apply false
+    id("com.autonomousapps.dependency-analysis") version "1.33.0"
 }
 
 buildscript {
     dependencies {
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.51.1")
+    }
+}
+
+dependencyAnalysis {
+    issues {
+        all {
+            onUnusedDependencies {
+                severity("fail")
+            }
+            onUsedTransitiveDependencies {
+                severity("warn")
+            }
+            onIncorrectConfiguration {
+                severity("fail")
+            }
+            onUnusedAnnotationProcessors {
+                severity("fail")
+            }
+            onRedundantPlugins {
+                severity("fail")
+            }
+            // Ignore ktx dependencies if a transitive dependency is used
+            ignoreKtx(true)
+        }
     }
 }
