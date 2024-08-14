@@ -23,8 +23,8 @@ platform :android do
 
   desc "Submit a new Alpha Build to Google Play"
   lane :beta do
-    #gradle(task: "clean bundleRelease")
-    #upload_to_play_store(track: 'alpha', skip_upload_apk: true)
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(track: 'alpha', skip_upload_apk: true)
 
     gradle(task: "assemble")
     amazon_app_submission(
