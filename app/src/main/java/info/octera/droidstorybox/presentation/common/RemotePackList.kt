@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -37,24 +38,37 @@ fun PreviewRemotePackList() {
 }
 
 @Composable
+@Preview
+fun PreviewRemotePackList_Empty() {
+    RemotePackList(
+        remotePacks = emptyList(),
+        onClick = {})
+}
+
+@Composable
 fun RemotePackList(
     modifier: Modifier = Modifier,
     remotePacks: List<RemotePack>,
     onClick: (RemotePack) -> Unit
 ) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(ExtraSmallPadding2),
-        contentPadding = PaddingValues(all = ExtraSmallPadding2)
-    ) {
-        items(
-            count = remotePacks.size,
+    if (remotePacks.isEmpty()) {
+        BigWarning(warnMessage = stringResource(R.string.no_pack_in_source_or_bad_source))
+    } else {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(ExtraSmallPadding2),
+            contentPadding = PaddingValues(all = ExtraSmallPadding2)
         ) {
-            remotePacks[it].let { remotePack ->
-                RemotePackListItem(remotePack = remotePack, onClick = { onClick(remotePack) })
+            items(
+                count = remotePacks.size,
+            ) {
+                remotePacks[it].let { remotePack ->
+                    RemotePackListItem(remotePack = remotePack, onClick = { onClick(remotePack) })
+                }
             }
         }
     }
+
 }
 
 @Composable
