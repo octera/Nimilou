@@ -20,6 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -36,7 +37,7 @@ import info.octera.droidstorybox.presentation.remote_pack.RemotePackScreen
 import info.octera.droidstorybox.presentation.remote_pack.RemotePackViewModel
 import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigation
 import info.octera.droidstorybox.presentation.settings_navigation.components.BottomNavigationItem
-import info.octera.droidstorybox.settings_appinfo.AppInfoScreen
+import info.octera.droidstorybox.presentation.settings_appinfo.AppInfoScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -87,7 +88,7 @@ fun SettingsNavigator() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),*/
                 title = {
-                    Text("Settings")
+                    Text(stringResource(R.string.settings))
                 }
             )
         },

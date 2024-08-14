@@ -1,4 +1,4 @@
-package info.octera.droidstorybox.settings_appinfo
+package info.octera.droidstorybox.presentation.settings_appinfo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
