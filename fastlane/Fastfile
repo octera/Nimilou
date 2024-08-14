@@ -23,9 +23,19 @@ platform :android do
 
   desc "Submit a new Alpha Build to Google Play"
   lane :beta do
-    gradle(task: "clean bundleRelease")
-    upload_to_play_store(track: 'alpha', skip_upload_apk: true)
-  
+    #gradle(task: "clean bundleRelease")
+    #upload_to_play_store(track: 'alpha', skip_upload_apk: true)
+
+    gradle(task: "assemble")
+    amazon_app_submission(
+        client_id: "amzn1.application-oa2-client.7dcbadad849f4113b04e079220d20872",
+        client_secret: "",
+        app_id: "amzn1.devportal.mobileapp.fae1c668e01c49cd96c5719c4a8db1cb",
+        apk_path: "./app/build/outputs/apk/release/app-release.apk",
+        upload_apk: true,
+        submit_for_review: true
+    )
+
     # sh "your_script.sh"
     # You can also use other beta testing services here
   end
