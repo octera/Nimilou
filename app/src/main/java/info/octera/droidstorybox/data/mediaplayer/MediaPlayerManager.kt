@@ -28,7 +28,6 @@ interface MediaPlayerManager {
 
 @OptIn(UnstableApi::class)
 class ExoMediaPlayerManager(
-    private val application: Application,
     private val player: ExoPlayer
 ) : MediaPlayerManager {
     private val flow = MutableStateFlow(PlayerState())
