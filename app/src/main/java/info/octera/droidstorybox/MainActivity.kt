@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 import info.octera.droidstorybox.presentation.navgraph.NavGraph
-import info.octera.droidstorybox.ui.theme.NewsAppTheme
+import info.octera.droidstorybox.ui.theme.NimilouAppTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         }
         actionBar?.hide()
         setContent {
-            NewsAppTheme {
+            NimilouAppTheme {
                 Box(
                     modifier = Modifier.background(MaterialTheme.colorScheme.background),
                 ) {

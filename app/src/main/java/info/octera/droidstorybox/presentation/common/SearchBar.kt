@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.R
 import info.octera.droidstorybox.presentation.Dimens.IconSize
-import info.octera.droidstorybox.ui.theme.NewsAppTheme
+import info.octera.droidstorybox.ui.theme.NimilouAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -118,7 +118,7 @@ fun Modifier.searchBar(): Modifier =
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun SearchBarPreview() {
-    NewsAppTheme {
+    NimilouAppTheme {
         SearchBar(text = "", onValueChange = {}, readOnly = false) {
         }
     }

@@ -37,7 +37,7 @@ fun OnBoardingPage(
     Column(modifier = modifier) {
         Image(
             painter = painterResource(id = page.image),
-            contentDescription = "",
+            contentDescription = "Image onboarding",
             modifier =
             modifier
                 .padding(24.dp)

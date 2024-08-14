@@ -1,6 +1,5 @@
 package info.octera.droidstorybox.presentation.settings_navigation.components
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,11 +17,9 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.R
 import info.octera.droidstorybox.presentation.Dimens.ExtraSmallPadding2
-import info.octera.droidstorybox.ui.theme.NewsAppTheme
 
 @Composable
 fun BottomNavigation(
