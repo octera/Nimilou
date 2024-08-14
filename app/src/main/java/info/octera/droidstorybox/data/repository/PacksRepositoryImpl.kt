@@ -1,7 +1,6 @@
 package info.octera.droidstorybox.data.repository
 
 import android.annotation.SuppressLint
-import android.app.DownloadManager
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
@@ -9,12 +8,10 @@ import android.os.Handler
 import android.os.Looper
 import android.provider.OpenableColumns
 import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toFile
 import dagger.hilt.android.qualifiers.ApplicationContext
 import info.octera.droidstorybox.data.file.FileSource
 import info.octera.droidstorybox.data.remote.BasicHttpSource
-import info.octera.droidstorybox.domain.model.PlayerState
 import info.octera.droidstorybox.domain.model.ProgressState
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.domain.repository.PacksRepository

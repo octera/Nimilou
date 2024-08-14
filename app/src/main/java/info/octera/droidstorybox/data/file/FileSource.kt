@@ -6,7 +6,6 @@ import androidx.core.net.toUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
-import java.net.URI
 import javax.inject.Inject
 
 class FileSource @Inject constructor(

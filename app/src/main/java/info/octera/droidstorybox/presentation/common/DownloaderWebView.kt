@@ -1,8 +1,5 @@
 package info.octera.droidstorybox.presentation.common
 
-import android.app.DownloadManager
-import android.net.Uri
-import android.os.Environment
 import android.view.ViewGroup
 import android.webkit.URLUtil
 import android.webkit.WebView
@@ -10,9 +7,7 @@ import android.webkit.WebViewClient
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat.getSystemService
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

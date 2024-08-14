@@ -2,7 +2,6 @@ package info.octera.droidstorybox.di
 
 import android.app.Application
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides

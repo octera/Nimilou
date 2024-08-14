@@ -1,6 +1,5 @@
 package info.octera.droidstorybox.ui.theme
 
-import androidx.compose.foundation.background
 import androidx.compose.ui.graphics.Color
 
 val Black = Color(0xFF1C1E21) // Dark Background

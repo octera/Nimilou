@@ -1,25 +1,17 @@
 package info.octera.droidstorybox.presentation.remote_pack
 
-import android.app.DownloadManager
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.os.Environment
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.ProgressState
-import info.octera.droidstorybox.domain.model.RemotePack
-import info.octera.droidstorybox.domain.usecases.pack.PackUseCases
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
 import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch

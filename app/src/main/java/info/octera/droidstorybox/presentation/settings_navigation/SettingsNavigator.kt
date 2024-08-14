@@ -1,7 +1,6 @@
 package info.octera.droidstorybox.presentation.settings_navigation
 
 import android.app.Activity
-import android.health.connect.datatypes.AppInfo
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

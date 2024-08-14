@@ -1,7 +1,6 @@
 package info.octera.droidstorybox.presentation.onboarding
 
 import androidx.annotation.DrawableRes
-import androidx.compose.ui.res.stringResource
 import info.octera.droidstorybox.R
 
 data class Page(

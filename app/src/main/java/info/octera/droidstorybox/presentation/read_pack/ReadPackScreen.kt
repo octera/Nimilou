@@ -1,7 +1,6 @@
 package info.octera.droidstorybox.presentation.read_pack
 
 import android.content.res.Configuration
-import android.health.connect.datatypes.Device
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

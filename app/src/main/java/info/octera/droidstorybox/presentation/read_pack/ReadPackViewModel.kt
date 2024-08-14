@@ -1,9 +1,7 @@
 package info.octera.droidstorybox.presentation.read_pack
 
 import android.net.Uri
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.util.fastFilterNotNull
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
