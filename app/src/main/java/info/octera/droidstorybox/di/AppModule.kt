@@ -33,7 +33,7 @@ object AppModule {
         val player = ExoPlayer
             .Builder(application)
             .build()
-        return ExoMediaPlayerManager(application, player)
+        return ExoMediaPlayerManager(player)
     }
 
     @Provides
