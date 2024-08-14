@@ -10,4 +10,7 @@
     </string-array>
     <string name="onboarding_page3_title">Ajout des histoires</string>
     <string name="onboarding_page3_desc">Ensuite, vous pourrez télécharger des packs puis les ajouter dans l\'application depuis le bouton \"+\" depuis l\'onglet Pack. Les packs doivent être au format ZIP</string>
+    <string name="please_add_pack_in_settings_menu">Merci d\'ajouter des packs dans les paramètres</string>
+    <string name="settings">Paramètres</string>
+    <string name="please_add_pack">Merci d\'ajouter des packs</string>
 </resources>

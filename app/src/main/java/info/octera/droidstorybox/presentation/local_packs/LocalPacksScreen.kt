@@ -22,9 +22,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import info.octera.droidstorybox.R
 import info.octera.droidstorybox.domain.model.pack.PackMetadata
 import info.octera.droidstorybox.presentation.PreviewFakeData
 import info.octera.droidstorybox.presentation.common.LocalPackList
@@ -92,7 +94,7 @@ fun LocalPacksScreen(
                             .padding(20.dp)
                     )
                     Text(
-                        text = "Please add pack",
+                        text = stringResource(R.string.please_add_pack),
                         style = MaterialTheme.typography.headlineLarge.copy(),
                         textAlign = TextAlign.Center
 
