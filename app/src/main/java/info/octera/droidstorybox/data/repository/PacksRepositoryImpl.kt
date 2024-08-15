@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onEach
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
@@ -34,10 +35,9 @@ class PacksRepositoryImpl @Inject constructor(
 ) : PacksRepository {
     private val packFileList = MutableStateFlow(emptyList<File>())
     private val location = "packs"
-    private val handler = Handler(Looper.getMainLooper())
 
     init {
-        checkPackFiles()
+        refreshPackFiles()
     }
 
     override fun getPacksFile(): Flow<List<File>> {
@@ -51,7 +51,8 @@ class PacksRepositoryImpl @Inject constructor(
             val fileSize = getFileSize(uri)
 
             val fileOutputStream = fileSource.getOutputStreamToFile(location, fileName)
-            return copyStreamWithProgress(istream, fileOutputStream, fileSize)
+            return copyStreamWithProgress(istream, fileOutputStream, fileSize.toLong())
+                .onEach { if (it is ProgressState.Finished) refreshPackFiles() }
         } else {
             throw IllegalArgumentException("Protocol not supporter " + uri.encodedSchemeSpecificPart)
         }
@@ -62,40 +63,23 @@ class PacksRepositoryImpl @Inject constructor(
         Log.e("DELETE", "deleted? $res")
     }
 
-    override fun downloadPackFile(downloadUrl: String, fileName: String): Flow<ProgressState> {
-        return flow {
-            emit(ProgressState.Progressing(0))
-            try {
-                val response = basicHttpSource.downloadFile(downloadUrl)
-                val fileOutputStream = fileSource.getOutputStreamToFile(location, fileName)
-                val body = response.body()!!
+    override suspend fun downloadPackFile(downloadUrl: String, fileName: String): Flow<ProgressState> {
+        val response = basicHttpSource.downloadFile(downloadUrl)
+        val fileOutputStream = fileSource.getOutputStreamToFile(location, fileName)
+        val body = response.body()!!
 
-                body.byteStream().use { inputStream->
-                    fileOutputStream.use { outputStream->
-                        val totalBytes = body.contentLength()
-                        val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
-                        var progressBytes = 0L
-                        var bytes = inputStream.read(buffer)
-                        while (bytes >= 0) {
-                            outputStream.write(buffer, 0, bytes)
-                            progressBytes += bytes
-                            bytes = inputStream.read(buffer)
-                            emit(ProgressState.Progressing(((progressBytes * 100.0) / totalBytes).toInt()))
-                        }
-                        Log.i("File", "File written successfully : $totalBytes written")
-                    }
-                }
-                emit(ProgressState.Finished)
-            } catch (e: Exception) {
-                emit(ProgressState.Failed(e))
-            }
-        }.flowOn(Dispatchers.IO).distinctUntilChanged()
+        val inputStream = body.byteStream()
+        val outputStream= fileOutputStream
+        val totalBytes = body.contentLength()
+
+        return copyStreamWithProgress(inputStream, outputStream, totalBytes)
+            .onEach { if (it is ProgressState.Finished) refreshPackFiles() }
     }
 
     private suspend fun copyStreamWithProgress(
         inputStream: InputStream,
         outputStream: OutputStream,
-        totalBytes: Int = -1
+        totalBytes: Long = -1
     ): Flow<ProgressState> {
         return flow {
             emit(ProgressState.Progressing(0))
@@ -157,10 +141,9 @@ class PacksRepositoryImpl @Inject constructor(
         throw IllegalStateException("Unknown filename")
     }
 
-    private fun checkPackFiles() : Boolean = handler.postDelayed({
+    private fun refreshPackFiles() {
         packFileList.value = fileSource.listFiles(location)
-        checkPackFiles()
-    }, 1000L)
+    }
 
 
 }

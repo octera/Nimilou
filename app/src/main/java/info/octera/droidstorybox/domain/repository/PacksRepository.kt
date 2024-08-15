@@ -10,5 +10,5 @@ interface PacksRepository {
     fun getPacksFile(): Flow<List<File>>
     suspend fun addPack(uri: Uri): Flow<ProgressState>
     suspend fun deletePack(packMetadata: PackMetadata)
-    fun downloadPackFile(downloadUrl: String, fileName: String): Flow<ProgressState>
+    suspend fun downloadPackFile(downloadUrl: String, fileName: String): Flow<ProgressState>
 }
