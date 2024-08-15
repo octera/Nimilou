@@ -13,7 +13,7 @@ class AddPack @Inject constructor(
         return packsRepository.addPack(uri)
     }
 
-    operator fun invoke(downloadUrl: String, fileName: String): Flow<ProgressState> {
+    suspend operator fun invoke(downloadUrl: String, fileName: String): Flow<ProgressState> {
         return packsRepository.downloadPackFile(downloadUrl, fileName)
     }
 }
