@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'main'
 
 jobs:
   build-and-deploy:
@@ -59,3 +60,5 @@ jobs:
         run: bundle exec fastlane test
       - name: Distribute app to Alpha track 🚀
         run: bundle exec fastlane alpha
+        env:
+          AMAZON_DEV_SECRET: ${{ secrets.AMAZON_DEV_SECRET }}
