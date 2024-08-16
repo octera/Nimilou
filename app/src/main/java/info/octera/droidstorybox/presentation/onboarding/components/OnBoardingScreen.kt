@@ -42,9 +42,8 @@ fun OnBoardingScreen(
                 derivedStateOf {
                     when (pagerState.currentPage) {
                         0 -> listOf("", "Next")
-                        1 -> listOf("Back", "Next")
-                        2 -> listOf("Back", "Get Started")
-                        else -> listOf("", "")
+                        pages.size-1 -> listOf("Back", "Get Started")
+                        else -> listOf("Back", "Next")
                     }
                 }
             }
@@ -87,7 +86,7 @@ fun OnBoardingScreen(
                 Spacer(modifier = Modifier.width(10.dp))
                 Button(onClick = {
                     scope.launch {
-                        if (pagerState.currentPage == 2) {
+                        if (pagerState.currentPage == pages.size-1) {
                             event(OnBoardingEvent.SaveAppEntry)
                         } else {
                             pagerState.animateScrollToPage(page = pagerState.currentPage + 1)

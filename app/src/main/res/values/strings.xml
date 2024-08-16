@@ -13,4 +13,7 @@
     <string name="settings">Settings</string>
     <string name="please_add_pack">Please add pack</string>
     <string name="no_pack_in_source_or_bad_source">No pack in source or bad source</string>
+    <string name="ajout_d_une_liste_de_pack">Add packs list</string>
+    <string name="disclaimer_title">Disclaimer :</string>
+    <string name="disclaimer_content">The application you are using allows access to audio stories. Please be aware that you are solely responsible for verifying the origin and validity of the sources of the stories you download, share, or listen to through this application. Ensure that the content is free of copyright or that you have obtained the necessary permissions to use it. The application cannot be held liable for any copyright infringement or violation of intellectual property rights.</string>
 </resources>

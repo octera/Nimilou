@@ -14,4 +14,7 @@
     <string name="settings">Paramètres</string>
     <string name="please_add_pack">Merci d\'ajouter des packs</string>
     <string name="no_pack_in_source_or_bad_source">Pas de packs dans la source ou mauvaise source</string>
+    <string name="ajout_d_une_liste_de_pack">Ajout d\'une liste de pack</string>
+    <string name="disclaimer_title">Avertissement :</string>
+    <string name="disclaimer_content">L\'application que vous utilisez permet d\'accéder à des histoires audio. Nous vous rappelons que vous êtes seul responsable de vérifier l\'origine et la validité des sources des histoires que vous téléchargez, partagez ou écoutez via cette application. Assurez-vous que les contenus sont libres de droits d\'auteur ou que vous avez obtenu les autorisations nécessaires pour les utiliser. L\'application ne saurait être tenue responsable en cas de non-respect des droits d\'auteur ou de toute violation de la propriété intellectuelle.</string>
 </resources>

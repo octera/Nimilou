@@ -30,4 +30,10 @@ val pages =
             links = null,
             image = R.drawable.onboarding3,
         ),
+        Page(
+            title = R.string.disclaimer_title,
+            description = R.string.disclaimer_content,
+            links = null,
+            image = R.drawable.icon_splash,
+        ),
     )
