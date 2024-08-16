@@ -62,3 +62,4 @@ jobs:
         run: bundle exec fastlane alpha
         env:
           AMAZON_DEV_SECRET: ${{ secrets.AMAZON_DEV_SECRET }}
+          AMAZON_DEV_CLIENTID: ${{ secrets.AMAZON_DEV_CLIENTID }}

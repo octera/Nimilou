@@ -28,7 +28,7 @@ platform :android do
 
     gradle(task: "assemble")
     amazon_app_submission(
-        client_id: "amzn1.application-oa2-client.7dcbadad849f4113b04e079220d20872",
+        client_id: ENV['AMAZON_DEV_CLIENTID'],
         client_secret: ENV['AMAZON_DEV_SECRET'],
         app_id: "amzn1.devportal.mobileapp.fae1c668e01c49cd96c5719c4a8db1cb",
         apk_path: "./app/build/outputs/apk/release/app-release.apk",
