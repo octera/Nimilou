@@ -12,7 +12,11 @@ import info.octera.droidstorybox.domain.model.PackSource
 import info.octera.droidstorybox.domain.model.ProgressState
 import info.octera.droidstorybox.domain.usecases.pack_sources.PackSourcesUseCases
 import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -41,6 +45,7 @@ class RemotePackViewModel @Inject constructor(
         viewModelScope.launch {
             val remotePack = packSourcesUseCases.fetchPacksFromPackSource(packSource)
             state.value = state.value.copy(remotePack = remotePack)
+            onQueryTextChanged(state.value.queryText)
         }
     }
 
@@ -70,5 +75,15 @@ class RemotePackViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onQueryTextChanged(query: String) {
+        state.value = state.value.copy(queryText = query)
+        val filteredRemotePack = if (query.isBlank()) {
+            state.value.remotePack
+        } else {
+            state.value.remotePack.filter { it.isMatchWithQuery(query) }
+        }
+        state.value = state.value.copy(filteredRemotePack = filteredRemotePack)
     }
 }
