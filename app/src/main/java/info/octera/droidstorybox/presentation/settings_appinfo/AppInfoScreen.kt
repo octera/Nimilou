@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.BuildConfig
 import info.octera.droidstorybox.R
+import info.octera.droidstorybox.presentation.common.Disclaimer
 
 @Preview
 @Composable
@@ -81,6 +82,10 @@ fun AppInfoScreen() {
             }) {
                 Text(text = "Buy Me a coffee")
             }
+            Column(modifier = Modifier.padding(16.dp)) {
+                Disclaimer()
+            }
+
         }
     }
 }
