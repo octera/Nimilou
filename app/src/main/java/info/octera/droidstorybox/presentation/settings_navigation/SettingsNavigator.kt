@@ -144,6 +144,7 @@ fun SettingsNavigator() {
                     state = state,
                     fetchPacksFromPackSource = viewModel::fetchPacksFromPackSource,
                     fetchPack = viewModel::fetchPack,
+                    onQueryChanged = viewModel::onQueryTextChanged
                 )
             }
             composable(route = Route.PackSourceScreen.route) {

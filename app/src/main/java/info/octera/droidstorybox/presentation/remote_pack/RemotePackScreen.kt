@@ -33,6 +33,7 @@ import info.octera.droidstorybox.presentation.common.DownloaderWebView
 import info.octera.droidstorybox.presentation.common.MyDropDownMenuItem
 import info.octera.droidstorybox.presentation.common.MyExposedDropdownMenu
 import info.octera.droidstorybox.presentation.common.RemotePackList
+import info.octera.droidstorybox.presentation.common.SearchField
 
 
 @Preview
@@ -45,8 +46,9 @@ fun PreviewRemotePackScreen() {
             downloadProgress = 50
         ),
         fetchPacksFromPackSource = {},
-        fetchPack = {_,_ ->}
-    )
+        fetchPack = {_,_ ->},
+        onQueryChanged= {},
+        )
 }
 
 @Preview
@@ -58,7 +60,9 @@ fun PreviewRemotePackScreenEmptySource() {
             remotePack = listOf()
         ),
         fetchPacksFromPackSource = {},
-        fetchPack = { _, _ -> }
+        fetchPack = { _, _ -> },
+        onQueryChanged= {},
+
     )
 }
 
@@ -67,8 +71,9 @@ fun RemotePackScreen(
     modifier: Modifier = Modifier,
     state: RemotePackState,
     fetchPacksFromPackSource: (PackSource) -> Unit,
-    fetchPack: (String, String) -> Unit
-) {
+    fetchPack: (String, String) -> Unit,
+    onQueryChanged: (String) -> Unit,
+    ) {
     var showBottomSheet by remember { mutableStateOf(false) }
     var urlBottomSheet by remember { mutableStateOf(null as String?) }
 
@@ -148,10 +153,14 @@ fun RemotePackScreen(
                     options = options,
                     onSelectedOptionChange = { fetchPacksFromPackSource(it) }
                 )
+                SearchField(
+                    searchQuery = state.queryText,
+                    onQueryChanged = {onQueryChanged(it)},
+                    modifier = Modifier.fillMaxWidth()
+                )
                 RemotePackList(
-                    remotePacks = state.remotePack,
+                    remotePacks = state.filteredRemotePack,
                     onClick = {
-                        // fetchPack(it)
                         showBottomSheet = true
                         urlBottomSheet = it.download
                     })
