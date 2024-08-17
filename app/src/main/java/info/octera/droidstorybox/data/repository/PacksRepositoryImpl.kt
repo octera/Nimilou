@@ -60,6 +60,7 @@ class PacksRepositoryImpl @Inject constructor(
 
     override suspend fun deletePack(packMetadata: PackMetadata) {
         val res = packMetadata.uri.toFile().delete()
+        refreshPackFiles()
         Log.e("DELETE", "deleted? $res")
     }
 
