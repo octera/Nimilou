@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.net.URLDecoder
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class ReadPackViewModel @Inject constructor(
@@ -66,8 +67,11 @@ class ReadPackViewModel @Inject constructor(
                 currentStageSelected()!!
             )
             ?: emptyList()
+
+        val optionIndex = state.value.currendStages[state.value.selectedStageIndex].okTransition?.optionIndex
+
         state.value = state.value.copy(
-            currendStages = nextStages,
+            currendStages = nextStages.mapForOption(optionIndex),
             selectedStageIndex = 0
         )
         runStage()
@@ -83,5 +87,16 @@ class ReadPackViewModel @Inject constructor(
     fun currentStageSelected(): Stage? {
         return state.value.currendStages
             .getOrNull(state.value.selectedStageIndex)
+    }
+
+    private fun List<Stage>.mapForOption(optionIndex : Int?): List<Stage> {
+        val list = when {
+            optionIndex == -1 && this.isNotEmpty() -> this.shuffled()
+            else -> this
+        }
+        if (list.isNotEmpty() && list.first().controlSettings.autoplay) {
+            return listOf(list.first())
+        }
+        return list
     }
 }
