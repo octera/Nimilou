@@ -2,7 +2,7 @@
 <resources>
     <style name="Theme.App.Starting.Theme" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#1C1E21</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/book</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_splash_foreground</item>
         <item name="postSplashScreenTheme">@style/Theme.DroidStoryBox</item>
     </style>
 

@@ -1,6 +1,5 @@
 package info.octera.droidstorybox.presentation.common
 
-
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -30,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import info.octera.droidstorybox.R
 import info.octera.droidstorybox.presentation.Dimens.IconSize
-import info.octera.droidstorybox.ui.theme.NewsAppTheme
+import info.octera.droidstorybox.ui.theme.NimilouAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,12 +39,12 @@ fun SearchBar(
     readOnly: Boolean,
     onClick: (() -> Unit)? = null,
     onValueChange: (String) -> Unit,
-    onSearch: () -> Unit
+    onSearch: () -> Unit,
 ) {
-
-    val interactionSource = remember {
-        MutableInteractionSource()
-    }
+    val interactionSource =
+        remember {
+            MutableInteractionSource()
+        }
     val isClicked = interactionSource.collectIsPressedAsState().value
     LaunchedEffect(key1 = isClicked) {
         if (isClicked) {
@@ -55,7 +54,8 @@ fun SearchBar(
 
     Box(modifier = modifier) {
         TextField(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .fillMaxWidth()
                 .searchBar(),
             value = text,
@@ -66,66 +66,60 @@ fun SearchBar(
                     painter = painterResource(id = R.drawable.baseline_search_24),
                     contentDescription = null,
                     modifier = Modifier.size(IconSize),
-                    tint = colorResource(id = R.color.body)
+                    tint = colorResource(id = R.color.body),
                 )
             },
             placeholder = {
                 Text(
                     text = "Search",
                     style = MaterialTheme.typography.bodySmall,
-                    color = colorResource(id = R.color.placeholder)
+                    color = colorResource(id = R.color.placeholder),
                 )
             },
             shape = MaterialTheme.shapes.medium,
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = colorResource(id = R.color.input_background),
+            colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = colorResource(id = R.color.input_background),
                 focusedTextColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
+                unfocusedIndicatorColor = Color.Transparent,
             ),
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-            keyboardActions = KeyboardActions(
+            keyboardActions =
+            KeyboardActions(
                 onSearch = {
                     onSearch()
-                }
+                },
             ),
             textStyle = MaterialTheme.typography.bodySmall,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
         )
     }
 }
 
-fun Modifier.searchBar(): Modifier = composed {
-    if (!isSystemInDarkTheme()) {
-        border(
-            width = 1.dp,
-            color = Color.Black,
-            shape = MaterialTheme.shapes.medium
-        )
-    } else {
-        this
+fun Modifier.searchBar(): Modifier =
+    composed {
+        if (!isSystemInDarkTheme()) {
+            border(
+                width = 1.dp,
+                color = Color.Black,
+                shape = MaterialTheme.shapes.medium,
+            )
+        } else {
+            this
+        }
     }
-}
 
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun SearchBarPreview() {
-    NewsAppTheme {
+    NimilouAppTheme {
         SearchBar(text = "", onValueChange = {}, readOnly = false) {
-
         }
     }
 }
-
-
-
-
-
-
-
-

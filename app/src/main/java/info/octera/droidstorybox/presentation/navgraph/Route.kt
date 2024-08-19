@@ -1,21 +1,26 @@
 package info.octera.droidstorybox.presentation.navgraph
 
 sealed class Route(val route: String) {
+    data object OnBoardingScreen : Route(route = "onBoardingScreen")
 
-    object OnBoardingScreen : Route(route = "onBoardingScreen")
+    data object HomeScreen : Route(route = "homeScreen")
 
-    object HomeScreen : Route(route = "homeScreen")
+    data object ReadScreen : Route(route = "readScreen")
 
-    object SearchScreen : Route(route = "searchScreen")
+    data object SettingsScreen : Route(route = "settingsScreen")
 
-    object BookmarkScreen : Route(route = "bookMarkScreen")
+    data object LocalPackScreen : Route(route = "localPackScreen")
 
-    object DetailsScreen : Route(route = "detailsScreen")
+    data object PackSourceScreen : Route(route = "packSourceScreen")
 
-    object AppStartNavigation : Route(route = "appStartNavigation")
+    data object RemotePackScreen : Route(route = "remotePackScreen")
 
-    object NewsNavigation : Route(route = "newsNavigation")
+    data object InfoScreen : Route(route = "infoScreen")
 
-    object NewsNavigatorScreen : Route(route = "newsNavigator")
-
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { arg -> append("/$arg") }
+        }
+    }
 }

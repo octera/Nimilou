@@ -1,18 +1,40 @@
 package info.octera.droidstorybox.presentation.home
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
-import info.octera.droidstorybox.domain.usecases.news.NewsUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import info.octera.droidstorybox.domain.model.pack.PackMetadata
+import info.octera.droidstorybox.domain.usecases.pack.PackUseCases
+import info.octera.droidstorybox.domain.usecases.packs.PacksUseCases
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val newsUseCases: NewsUseCases
-): ViewModel() {
+    private val packsUseCases: PacksUseCases,
+    private val packUseCases: PackUseCases
+) : ViewModel() {
+    val state = mutableStateOf(HomeScreenState())
 
-    val news = newsUseCases.getNews(
-        sources = listOf("bbc-news", "abc-news", "al-jazeera-english")
-    ).cachedIn(viewModelScope)
+    init {
+        getPacks()
+    }
+
+    private fun getPacks() {
+        packsUseCases.getPacks().onEach {
+            state.value = state.value.copy(packs = it)
+        }.launchIn(viewModelScope)
+    }
+
+    fun setPackFocused(packMetadata: PackMetadata) {
+        viewModelScope.launch {
+            val pack = packUseCases.getPack(packMetadata.uri)
+            val firstStage = pack.getFirstStage()
+            state.value = state.value.copy(packFocused = pack)
+            firstStage?.audio?.let { packUseCases.playMedia(it) }
+        }
+    }
 }
