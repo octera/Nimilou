@@ -48,8 +48,8 @@ jobs:
         run: ./gradlew lintDebug
       - name: Create Google Play Config file
         run: |
-          echo "$PLAY_STORE_CREDS" > api-service-account.json.b64
-          base64 -d -i api-service-account.json.b64 > api-service-account.json
+          echo "$PLAY_STORE_CREDS" > play-store-credentials.json.b64
+          base64 -d -i api-service-account.json.b64 > play-store-credentials.json.json
         env:
           PLAY_CONFIG_JSON: ${{ secrets.PLAY_STORE_CREDS }}
       - name: Install bundle
