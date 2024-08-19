@@ -59,7 +59,7 @@ jobs:
       - name: Attempt to test and build app throught fastlane
         run: bundle exec fastlane test
       - name: Distribute app to Alpha track 🚀
-        run: bundle exec fastlane alpha
+        run: bundle exec fastlane beta
         env:
           AMAZON_DEV_SECRET: ${{ secrets.AMAZON_DEV_SECRET }}
           AMAZON_DEV_CLIENTID: ${{ secrets.AMAZON_DEV_CLIENTID }}
