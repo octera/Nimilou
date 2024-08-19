@@ -34,7 +34,7 @@ platform :android do
         apk_path: "./app/build/outputs/apk/release/app-release.apk",
         upload_apk: true,
         submit_for_review: true,
-        changelogs_path: './fastlane/metadata/android/en-US/changelogs',
+        changelogs_path: './fastlane/metadata/android/fr-FR/changelogs',
         upload_changelogs: true
     )
 
