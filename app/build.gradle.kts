@@ -32,8 +32,8 @@ android {
         applicationId = "info.octera.droidstorybox"
         minSdk = 21
         targetSdk = 34
-        versionCode = 32
-        versionName = "0.3.2"
+        versionCode = 40
+        versionName = "0.4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

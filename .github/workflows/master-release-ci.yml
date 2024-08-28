@@ -48,10 +48,10 @@ jobs:
         run: ./gradlew lintDebug
       - name: Create Google Play Config file
         run: |
-          echo "$PLAY_STORE_CREDS" > api-service-account.json.b64
-          base64 -d -i api-service-account.json.b64 > api-service-account.json
+          echo "$PLAY_STORE_CREDS" > play-store-credentials.json.b64
+          base64 -d -i play-store-credentials.json.b64 > play-store-credentials.json
         env:
-          PLAY_CONFIG_JSON: ${{ secrets.PLAY_STORE_CREDS }}
+          PLAY_STORE_CREDS: ${{ secrets.PLAY_STORE_CREDS }}
       - name: Install bundle
         run: |
           bundle config path vendor/bundle
@@ -59,7 +59,7 @@ jobs:
       - name: Attempt to test and build app throught fastlane
         run: bundle exec fastlane test
       - name: Distribute app to Alpha track 🚀
-        run: bundle exec fastlane alpha
+        run: bundle exec fastlane beta
         env:
           AMAZON_DEV_SECRET: ${{ secrets.AMAZON_DEV_SECRET }}
           AMAZON_DEV_CLIENTID: ${{ secrets.AMAZON_DEV_CLIENTID }}
