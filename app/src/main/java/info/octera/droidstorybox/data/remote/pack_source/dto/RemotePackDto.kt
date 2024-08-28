@@ -2,6 +2,16 @@ package info.octera.droidstorybox.data.remote.pack_source.dto
 
 import com.google.gson.annotations.SerializedName
 
+data class TelmiResponse(
+    val banner: Banner,
+    val data: List<RemotePackDto>
+)
+
+data class Banner (
+    val image: String,
+    val link: String
+)
+
 data class ThumbsDto(
     val small: String,
     val medium: String
