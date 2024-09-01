@@ -3,9 +3,7 @@ package info.octera.droidstorybox.presentation.pack_sources
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -70,13 +69,32 @@ fun PackSourcesScreen(
         }
     )
     { paddingValues ->
-        PackSourcesList(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            packSources = state.packSources,
-            onClick = { deletePackSource(it) }
-        )
+        Column(modifier = Modifier.padding(paddingValues)) {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(R.string.default_source),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge)
+            PackSourcesList(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(paddingValues),
+                packSources = state.packSources.filter { it.locked },
+                onClick = { deletePackSource(it) }
+            )
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(R.string.custom_source),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodyLarge)
+            PackSourcesList(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(paddingValues),
+                packSources = state.packSources.filter { !it.locked },
+                onClick = { deletePackSource(it) }
+            )
+        }
         if (addDialogOpen) {
             PackSourceDialog(
                 onDismissRequest = { addDialogOpen = false },
