@@ -9,5 +9,8 @@ import kotlinx.parcelize.Parcelize
 @Entity
 data class PackSource(
     @PrimaryKey val url: String,
-    val name: String
+    val name: String,
+    val locked: Boolean = false,
+    val link: String? = null,
+    val description: String? = null
 ) : Parcelable
