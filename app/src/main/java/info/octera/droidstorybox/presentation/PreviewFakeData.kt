@@ -41,8 +41,14 @@ object PreviewFakeData {
         stages = emptyList()
     )
     val packSources = listOf(
-        PackSource(name = "Source1", url = "https://foo"),
-        PackSource(name = "Source1", url = "https://foo"),
+        PackSource(
+            name = "Source par defaut",
+            url = "https://foo",
+            locked = true,
+            description = "Lorem ipsum dolor si amet",
+            link = "http://foo"),
+        PackSource(name = "Source 1", url = "https://foo"),
+        PackSource(name = "Source 2", url = "https://foo"),
     )
     val remotePacks = listOf(
         RemotePack(
