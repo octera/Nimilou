@@ -42,7 +42,7 @@ fun OnBoardingPage(
             modifier
                 .padding(24.dp)
                 .fillMaxWidth()
-                .fillMaxHeight(0.6f),
+                .fillMaxHeight(0.3f),
             contentScale = ContentScale.Fit,
         )
         Spacer(modifier = modifier.height(MediumPadding1))

@@ -43,14 +43,13 @@ import info.octera.droidstorybox.presentation.settings_appinfo.AppInfoScreen
 @Composable
 fun SettingsNavigator() {
     val context = LocalContext.current as Activity
-    val bottomNavigationItems = remember {
-        listOf(
-            BottomNavigationItem(icon = R.drawable.baseline_local_library_24, text = "Packs"),
-            BottomNavigationItem(icon = R.drawable.baseline_search_24, text = "Remote Packs"),
-            BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = "Pack sources"),
-            BottomNavigationItem(icon = R.drawable.baseline_info_24, text = "Infos"),
-        )
-    }
+    val bottomNavigationItems = listOf(
+        BottomNavigationItem(icon = R.drawable.baseline_local_library_24, text = stringResource(R.string.packs)),
+        BottomNavigationItem(icon = R.drawable.baseline_search_24, text = stringResource(R.string.remote_packs)),
+        BottomNavigationItem(icon = R.drawable.baseline_cloud_download_24, text = stringResource(R.string.pack_sources)),
+        BottomNavigationItem(icon = R.drawable.baseline_info_24, text = stringResource(R.string.infos)),
+    )
+
 
     val navController = rememberNavController()
     val backStackState = navController.currentBackStackEntryAsState().value
