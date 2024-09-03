@@ -21,4 +21,6 @@
     <string name="disclaimer_content">L\'application que vous utilisez permet d\'accéder à des histoires audio. Nous vous rappelons que vous êtes seul responsable de vérifier l\'origine et la validité des sources des histoires que vous téléchargez, partagez ou écoutez via cette application. Assurez-vous que les contenus sont libres de droits d\'auteur ou que vous avez obtenu les autorisations nécessaires pour les utiliser. L\'application ne saurait être tenue responsable en cas de non-respect des droits d\'auteur ou de toute violation de la propriété intellectuelle.</string>
     <string name="custom_source">Source personalisée</string>
     <string name="default_source">Source par défaut</string>
+    <string name="remote_packs">Packs distants</string>
+    <string name="pack_sources">Sources de Pack</string>
 </resources>
