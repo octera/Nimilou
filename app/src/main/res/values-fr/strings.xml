@@ -4,7 +4,7 @@
     <string name="onboarding_page1_title">Bienvenue sur Nimilou</string>
     <string name="onboarding_page1_desc">Bienvenue sur Nimilou. Cette application vous permet de lire des histoires audio. Elle accepte les format d\'histoire interactifs du type de Telmi, qui permet de naviguer dans les histoire avec simplicité.</string>
     <string name="onboarding_page2_title">Ajout des packs d\'histoire</string>
-    <string name="onboarding_page2_desc">Pour utiliser l\'application vous devez vous rapprocher d\'une communauté qui vous permettra de trouver des packs d\'histoire a ajouter a l\'application. Les listing de packs au format Telmi peuvent être ajouté depuis la page de configuration dans l\'onglet \"Sources de Packs\". Quelques liens vers des communautées déjà ajoutées dans l'app:</string>
+    <string name="onboarding_page2_desc">Pour utiliser l\'application vous devez vous rapprocher d\'une communauté qui vous permettra de trouver des packs d\'histoire a ajouter a l\'application. Les listing de packs au format Telmi peuvent être ajouté depuis la page de configuration dans l\'onglet \"Sources de Packs\". Quelques liens vers des communautées déjà ajoutées dans l\'app:</string>
     <string-array name="onboarding_page2_links">
         <item>https://monurl.ca/lunii.creations</item>
     </string-array>
@@ -23,4 +23,6 @@
     <string name="default_source">Source par défaut</string>
     <string name="remote_packs">Packs distants</string>
     <string name="pack_sources">Sources de Pack</string>
+    <string name="packs">Packs</string>
+    <string name="infos">Infos</string>
 </resources>
