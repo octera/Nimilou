@@ -22,13 +22,19 @@ val pages =
             title = R.string.onboarding_page2_title,
             description = R.string.onboarding_page2_desc,
             links = R.array.onboarding_page2_links,
-            image = R.drawable.onboarding2,
+            image = R.drawable.icon_splash,
         ),
         Page(
             title = R.string.onboarding_page3_title,
             description = R.string.onboarding_page3_desc,
             links = null,
-            image = R.drawable.onboarding3,
+            image = R.drawable.icon_splash,
+        ),
+        Page(
+            title = R.string.onboarding_page4_title,
+            description = R.string.onboarding_page4_desc,
+            links = null,
+            image = R.drawable.icon_splash,
         ),
         Page(
             title = R.string.disclaimer_title,
