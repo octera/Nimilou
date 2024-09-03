@@ -23,4 +23,6 @@
     <string name="default_source">Source par défaut</string>
     <string name="remote_packs">Packs distants</string>
     <string name="pack_sources">Sources de Pack</string>
+    <string name="packs">Packs</string>
+    <string name="infos">Infos</string>
 </resources>
