@@ -219,7 +219,10 @@ private fun StagePlayer(
             Text(text = playerInfo.position.ToMinutesFormat())
             LinearProgressIndicator(
                 modifier = Modifier.fillMaxWidth(0.7f),
-                progress = { playerInfo.position.div(playerInfo.duration).toFloat() }
+                progress = {
+                    val ratio = playerInfo.position.div(playerInfo.duration).takeIf { !it.isNaN() } ?: 0.0
+                    ratio.toFloat()
+                }
             )
             Text(text = playerInfo.duration.ToMinutesFormat())
         }
