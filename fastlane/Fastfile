@@ -74,7 +74,6 @@ platform :android do
       api_bearer: ENV["GITHUB_TOKEN"],
       name: ENV['VERSION'],
       tag_name: "release/" + ENV['VERSION'],
-      commitish: "master",
       description: (File.read("fastlane/metadata/android/fr-FR/changelogs/default.txt") rescue "No changelog provided"),
       upload_assets: lane_context[SharedValues::GRADLE_ALL_APK_OUTPUT_PATHS]
     )
