@@ -49,10 +49,8 @@ platform :android do
   lane :release do
     previous_prod_build_number = google_play_track_version_codes()[0]
     previous_alpha_build_number = google_play_track_version_codes(track: "alpha")[0]
-    UI.message("Current prod deployed version number: #{previous_prod_build_number}")
-    UI.message("Current alpha deployed version number: #{previous_alpha_build_number}")
     nextVersion = [previous_prod_build_number, previous_alpha_build_number].max + 1
-    UI.message("Next deployed version number will be: #{nextVersion}")
+    UI.message("Next deployed version code will be: #{nextVersion} with number:" + ENV['VERSION'])
 
     increment_version_code(
       app_project_dir: '**/app',
