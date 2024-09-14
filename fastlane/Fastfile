@@ -71,7 +71,7 @@ platform :android do
 
     set_github_release(
       repository_name: "octera/Nimilou",
-      api_token: ENV["GITHUB_TOKEN"],
+      api_bearer: ENV["GITHUB_TOKEN"],
       name: ENV['VERSION'],
       tag_name: "release/" + ENV['VERSION'],
       commitish: "master",
