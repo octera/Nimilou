@@ -1,15 +1,16 @@
-name: Master Release CI
-
+name: Tag release CI
 on:
   push:
-    branches:
-      - 'master'
-      - 'main'
+    tags:
+      - 'release/*'
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
       - uses: actions/checkout@v1
       - name: set up Ruby for fastlane
         uses: ruby/setup-ruby@v1
@@ -39,13 +40,6 @@ jobs:
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
           KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
-      # Step 3: Check the code with ktlint, you can remove this job if you don't use ktlint
-      - name: Run Kotlin Linter
-        run: ./gradlew ktlintCheck
-
-      # Step 3: Check the code with Android linter
-      - name: Run Android Linter
-        run: ./gradlew lintDebug
       - name: Create Google Play Config file
         run: |
           echo "$PLAY_STORE_CREDS" > play-store-credentials.json.b64
@@ -56,10 +50,10 @@ jobs:
         run: |
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Attempt to test and build app throught fastlane
-        run: bundle exec fastlane test
-      #- name: Distribute app to Alpha track 🚀
-      #  run: bundle exec fastlane beta
-      #  env:
-      #    AMAZON_DEV_SECRET: ${{ secrets.AMAZON_DEV_SECRET }}
-      #    AMAZON_DEV_CLIENTID: ${{ secrets.AMAZON_DEV_CLIENTID }}
+      - name: Distribute app to Alpha track 🚀
+        run: bundle exec fastlane release
+        env:
+          VERSION: ${{ steps.get_version.outputs.VERSION }}
+          GITHUB_TOKEN: ${{ github.token }}
+          AMAZON_DEV_SECRET: ${{ secrets.AMAZON_DEV_SECRET }}
+          AMAZON_DEV_CLIENTID: ${{ secrets.AMAZON_DEV_CLIENTID }}
